@@ -1,0 +1,10 @@
+version: '3'
+services:
+  frontend:
+    build: .
+    volumes:
+      - ./:/usr/src/app
+    command: sh -c 'cd frontend && yarn start'
+    ports:
+      - 9000:3000
+    tty: true

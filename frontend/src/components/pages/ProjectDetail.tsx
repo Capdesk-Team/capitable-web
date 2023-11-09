@@ -12,22 +12,21 @@ const ProjectDetail:React.FC = () => {
     content: '',
   });
 
-  const query = useParams();
-  console.log(query.id);
+  // const { id } = useParams<{ id: number }>(); 
 
-  useEffect(() => {
-    handleGetDetail(query)
-  }, [query]);
+  // useEffect(() => {
+  //   handleGetDetail(id)
+  // }, [id]);
 
-  const handleGetDetail = async (query: number) => {
-    try {
-      const res = await getDetail(query.id);
-      console.log(res.data);
-      setData(res.data);
-    } catch(e) {
+  // const handleGetDetail = async (query: number) => {
+  //   try {
+  //     const res = await getDetail(query.id);
+  //     console.log(res.data);
+  //     setData(res.data);
+  //   } catch(e) {
 
-    }
-  }
+  //   }
+  // }
 
 
   return (

@@ -5,7 +5,8 @@ import CommonLayout from "components/layouts/CommonLayout"
 import Home from "components/pages/Home"
 import SignUp from "components/pages/SignUp"
 import SignIn from "components/pages/SignIn"
-
+import ProjectDetail from "components/pages/ProjectDetail"
+import Dashboard from "components/pages/Dashboards"
 import { getCurrentUser } from "api/auth"
 import { User } from "interfaces/user"
 
@@ -70,6 +71,8 @@ const App: React.FC = () => {
               )
               }
             />
+            <Route path="/project/:id" element={<ProjectDetail/>}/>
+            <Route path="dashboards" element={<Dashboard/>}/>
           </Routes>
         </CommonLayout>
       </AuthContext.Provider>

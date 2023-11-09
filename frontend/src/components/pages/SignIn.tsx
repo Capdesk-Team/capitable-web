@@ -73,8 +73,7 @@ const SignIn: React.FC = () => {
         setCurrentUser(res.data.data)
 
         navigate("/")
-
-        console.log("Signed in successfully!")
+        console.log("ログインに成功しました！")
       } else {
         setAlertMessageOpen(true)
       }

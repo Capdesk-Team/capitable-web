@@ -4,7 +4,6 @@ import Cookies from "js-cookie"
 
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
-import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
@@ -14,6 +13,12 @@ import { signOut } from "api/auth"
 import { AuthContext } from "App"
 
 const useStyles = makeStyles((theme: Theme) => ({
+  header: {
+    backgroundColor: '#'
+  },
+  logo: {
+    margin: theme.spacing(2),
+  },
   iconButton: {
     marginRight: theme.spacing(2),
   },
@@ -23,12 +28,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: "inherit"
   },
   linkBtn: {
-    textTransform: "none"
+    textTransform: "none",
+    margin: 4
   }
 }))
 
 const Header: React.FC = () => {
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
+  const { loading, isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext)
   const classes = useStyles()
   const navigate = useNavigate()
 
@@ -64,6 +70,8 @@ const Header: React.FC = () => {
             <Button
             color="inherit"
             className={classes.linkBtn}
+            component={Link}
+            to="/dashboards"  
           >
             プロジェクトダッシュボードへ
           </Button>
@@ -72,8 +80,11 @@ const Header: React.FC = () => {
             className={classes.linkBtn}
             onClick={handleSignOut}
           >
-            Sign out
+            ログアウト
           </Button>
+          <Typography>
+            お名前：{currentUser?.name}
+          </Typography>
           </>
         )
       } else {
@@ -82,7 +93,8 @@ const Header: React.FC = () => {
             <Button
               component={Link}
               to="/signin"
-              color="inherit"
+              color="primary"
+              variant="outlined"
               className={classes.linkBtn}
             >
               ログイン
@@ -90,7 +102,8 @@ const Header: React.FC = () => {
             <Button
               component={Link}
               to="/signup"
-              color="inherit"
+              color="primary"
+              variant="outlined"
               className={classes.linkBtn}
             >
               新規登録
@@ -105,7 +118,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <AppBar position="static" elevation={0}>
+      <div className={classes.header}>
         <Toolbar>
           <Typography
             component={Link}
@@ -113,11 +126,11 @@ const Header: React.FC = () => {
             variant="h6"
             className={classes.title}
           >
-            <img src="/Equity_Logo.png" width="90" height="80" alt="ホームアイコン" />
+            <img src="/Equity_Logo.png" width="100" height="30" alt="ホームアイコン" className={classes.logo} />
           </Typography>
           <AuthButtons />
         </Toolbar>
-      </AppBar>
+      </div>
     </>
   )
 }

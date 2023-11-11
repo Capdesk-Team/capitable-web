@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
   },
   image: {
-    width: 100,
     border: 'solid 1px #dfdfdf',
     borderRadius: 4
   }
@@ -57,7 +56,7 @@ const Home: React.FC = () => {
         <Grid key={index} item xs={12} md={4}>
         <Card>
         <CardContent>
-          <img　src={`http://localhost:3001${project.image.url}`} alt="企業イメージ" height="100" className={classes.image}/>
+          <img　src={project.image.url} alt="企業イメージ" className={classes.image}/>
           <Typography
            variant="h6"
           >

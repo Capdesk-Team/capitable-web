@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '200px',
     marginLeft: '40%'
   },
+  image: {
+    border: 'solid 1px #dfdfdf',
+    borderRadius: 4
+  }
 }))
 
 const ProjectDetail:React.FC = () => {
@@ -60,7 +64,7 @@ const ProjectDetail:React.FC = () => {
     <>
       <div>
         <Typography>
-          <img　src={data.image.url} alt="企業イメージ" width="120" height="120"/>
+          <img　src={data.image.url} className={classes.image} alt="企業イメージ" width="120" height="120"/>
         </Typography>
         <Divider />
         <Typography

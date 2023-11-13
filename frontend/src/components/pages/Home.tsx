@@ -8,7 +8,7 @@ import { AuthContext } from "App"
 import { getProject } from 'api/project'
 import { getProjectList } from 'interfaces/project'
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { Container, Grid } from "@material-ui/core"
+import { Grid } from "@material-ui/core"
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -38,6 +38,7 @@ const Home: React.FC = () => {
       console.log(e);
     }
   }
+
   const { isSignedIn, currentUser } = useContext(AuthContext)
 
   return (
@@ -46,40 +47,38 @@ const Home: React.FC = () => {
         isSignedIn && currentUser ? (
           <>
             <Typography
-        variant="h6"
-      >
-        スタートアップ一覧
-      </Typography>
-
-      <Grid container spacing={4} className={classes.container}>
-      {projectList.map((project: getProjectList, index) => (
-        <Grid key={index} item xs={12} md={4}>
-        <Card>
-        <CardContent>
-          <img　src={project.image.url} alt="企業イメージ" className={classes.image}/>
-          <Typography
-           variant="h6"
-          >
-            {project.companyName}
-          </Typography>
-          <Typography>
-            {project.title}
-          </Typography>
-          <Button
-              component={Link}
-              to={`/project/${project.id}`}
-              color="primary"
-              variant="outlined"
+              variant="h6"
             >
-              求人詳細へ
-            </Button>
-        </CardContent>
-        </Card>
-        </Grid>
-        
-      ))}
-      </Grid>
-      </>
+              スタートアップ一覧
+            </Typography>
+            <Grid container spacing={4} className={classes.container}>
+              {projectList.map((project: getProjectList, index) => (
+              <Grid key={index} item xs={12} md={4}>
+                <Card>
+                  <CardContent>
+                    <img　src={project.image.url} alt="企業イメージ" className={classes.image} width="120" height="120"/>
+                    <Typography
+                    variant="h6"
+                    >
+                      {project.companyName}
+                    </Typography>
+                    <Typography>
+                      {project.title}
+                    </Typography>
+                    <Button
+                        component={Link}
+                        to={`/project/${project.id}`}
+                        color="primary"
+                        variant="outlined"
+                      >
+                        求人詳細へ
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+            </Grid>
+          </>
       ) : (
         <h2>ログインが必要です</h2>
       )

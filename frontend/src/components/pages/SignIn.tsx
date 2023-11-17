@@ -104,7 +104,6 @@ const SignIn: React.FC = () => {
               fullWidth
               label="パスワード"
               type="password"
-              placeholder="At least 6 characters"
               value={password}
               margin="dense"
               autoComplete="current-password"
@@ -115,7 +114,7 @@ const SignIn: React.FC = () => {
               variant="contained"
               size="large"
               fullWidth
-              color="default"
+              color="primary"
               disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
               className={classes.submitBtn}
               onClick={handleSubmit}

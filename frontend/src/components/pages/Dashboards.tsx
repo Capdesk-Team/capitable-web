@@ -61,94 +61,94 @@ const Dashboard: React.FC = () => {
   
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
 
-        {/* ナビゲーションバー */}
-        <AppBar
-          position="fixed"
-          color="default"
+      {/* ナビゲーションバー */}
+      <AppBar
+        position="fixed"
+        color="default"
+      >
+        <Toolbar />
+      </AppBar>
+
+      {/* サイドメニューバー */}
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        <Drawer
+          variant="permanent"
+          open
         >
           <Toolbar />
-        </AppBar>
-
-        {/* サイドメニューバー */}
-        <Box
-          component="nav"
-          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-          aria-label="mailbox folders"
-        >
-          <Drawer
-            variant="permanent"
-            open
-          >
-            <Toolbar />
-            <Divider />
-            <List>
-              {dashboardListItems}
-            </List>
-          </Drawer>
-        </Box>
-              
-              
-        {/* 自分が作成したプロジェクト */}
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-        >
-          {
-            isSignedIn && currentUser ? (
-            <>
-              <Typography
-                variant="h6"
-              >
-                作成した募集一覧
-              </Typography>
-
-              <Grid container spacing={4} >
-                {projectList.map((project: getProjectList, index) => (
-                  <React.Fragment key={index}>
-                      {currentUser.id === project.userId ? (
-                      <Grid key={index} item xs={12} md={4}>
-                        <Card>
-                          <CardContent>
-                            <Typography
-                              variant="h6"
-                            >
-                              募集内容
-                            </Typography>
-                            <Typography>
-                              {project.title}
-                            </Typography>
-                            <Button
-                              component={Link}
-                              to={`/project/${project.id}/apply`}
-                              color="primary"
-                              variant="outlined"
-                            >
-                              応募者を確認する
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-                      ) : null}
-                  </React.Fragment>
-                ))}
-              </Grid>
-            </>
-            ) : (
-              <>
-                <h2>ログインが必要です</h2>
-                <Button>
-                  <Link to="/signin" className={classes.link}>
-                    ログインはこちらから
-                  </Link>
-                </Button>
-              </>
-            )
-          }
-        </Box>
+          <Divider />
+          <List>
+            {dashboardListItems}
+          </List>
+        </Drawer>
       </Box>
+            
+            
+      {/* 自分が作成したプロジェクト */}
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
+        {
+          isSignedIn && currentUser ? (
+          <>
+            <Typography
+              variant="h6"
+            >
+              作成した募集一覧
+            </Typography>
+
+            <Grid container direction="column" spacing={2} >
+              {projectList.map((project: getProjectList, index) => (
+                <React.Fragment key={index}>
+                    {currentUser.id === project.userId ? (
+                    <Grid key={index} item>
+                      <Card>
+                        <CardContent>
+                          <Typography
+                            variant="h6"
+                          >
+                            募集内容
+                          </Typography>
+                          <Typography>
+                            {project.title}
+                          </Typography>
+                          <Button
+                            component={Link}
+                            to={`/project/${project.id}/apply`}
+                            color="primary"
+                            variant="outlined"
+                          >
+                            応募者を確認する
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    ) : null}
+                </React.Fragment>
+              ))}
+            </Grid>
+          </>
+          ) : (
+            <>
+              <h2>ログインが必要です</h2>
+              <Button>
+                <Link to="/signin" className={classes.link}>
+                  ログインはこちらから
+                </Link>
+              </Button>
+            </>
+          )
+        }
+      </Box>
+    </Box>
     </>
   );
 }

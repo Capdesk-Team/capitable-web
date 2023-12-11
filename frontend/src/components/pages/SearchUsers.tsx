@@ -29,29 +29,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 const SearchUsers = () => {
   const classes = useStyles()
   const { currentUser } = useContext(AuthContext)
-
-  const initialUserState: User = {
-    id: '',
-    uid: '',
-    provider: '',
-    email: '',
-    name: '',
-    image: {
-      url: '',
-    },
-    techSkill: '',
-    githubUrl: '',
-    facebookUrl: '',
-    portfolioUrl: '',
-    career: '',
-    nextCareer: '',
-    nickname: '',
-    allowPasswordChange: true,
-  }
-
   
   const [users, setUsers] = useState<User[]>([])
-  const [user, setUser] = useState<User>(initialUserState)
   const [likes, setLikes] = useState<Like[]>([])
   const [likedUsers, setLikedUsers] = useState<User[]>([])
 
@@ -111,9 +90,7 @@ const SearchUsers = () => {
             {
               users.map((user: User, index) => {
                 return (
-                  <div key={index} onClick={() => {
-                    setUser(user)
-                  }}>
+                  <div key={index} >
                     <Card className={classes.usersList}>
                       <Grid item style={{ margin: "0.5rem", cursor: "pointer" }}>
                         <Avatar

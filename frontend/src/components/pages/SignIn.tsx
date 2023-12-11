@@ -1,8 +1,12 @@
 import React, { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { AuthContext } from "App"
 import Cookies from "js-cookie"
-
-import { makeStyles, Theme } from "@material-ui/core/styles"
+// API
+import { signIn } from "api/auth"
+// Interfaces
+import { SignInParams } from "interfaces/user"
+// Material UI
 import { Typography } from "@material-ui/core"
 import TextField from "@material-ui/core/TextField"
 import Card from "@material-ui/core/Card"
@@ -10,12 +14,12 @@ import CardContent from "@material-ui/core/CardContent"
 import CardHeader from "@material-ui/core/CardHeader"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
-
-import { AuthContext } from "App"
+// Import Style
+import { makeStyles, Theme } from "@material-ui/core/styles"
+// Component
 import AlertMessage from "components/utils/AlertMessage"
-import { signIn } from "api/auth"
-import { SignInParams } from "interfaces/user"
 
+// Style
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     marginTop: theme.spacing(6)
@@ -36,8 +40,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: "2rem"
   },
   link: {
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+    color: "blue",
+    "&:hover, &:active, &:focus": {
+      color: "blue",
+      textDecoration: "none", 
+    }
+  },
 }))
 
 // サインイン用ページ
@@ -113,6 +122,7 @@ const SignIn: React.FC = () => {
               type="submit"
               variant="contained"
               size="large"
+              disableElevation
               fullWidth
               color="primary"
               disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように

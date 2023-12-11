@@ -1,8 +1,12 @@
 import React, { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { AuthContext } from "App"
 import Cookies from "js-cookie"
-
-import { makeStyles, Theme } from "@material-ui/core/styles"
+// API
+import { signUp } from "api/auth"
+// Interfaces
+import { SignUpParams } from "interfaces/user"
+// Material UI
 import TextField from "@material-ui/core/TextField"
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
@@ -10,11 +14,10 @@ import CardHeader from "@material-ui/core/CardHeader"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
 import { Typography } from "@material-ui/core"
-
-import { AuthContext } from "App"
+// Import Style
+import { makeStyles, Theme } from "@material-ui/core/styles"
+// Components
 import AlertMessage from "components/utils/AlertMessage"
-import { signUp } from "api/auth"
-import { SignUpParams } from "interfaces/user"
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -36,8 +39,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: "2rem"
   },
   link: {
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+    color: "blue",
+    "&:hover, &:active, &:focus": {
+      color: "blue",
+      textDecoration: "none", 
+    }
+  },
 }))
 
 // サインアップ用ページ
@@ -79,7 +87,7 @@ const SignUp: React.FC = () => {
 
         navigate("/")
 
-        console.log("Signed in successfully!")
+        console.log("ログインに成功しました")
       } else {
         setAlertMessageOpen(true)
       }
@@ -135,11 +143,25 @@ const SignUp: React.FC = () => {
               autoComplete="current-password"
               onChange={event => setPasswordConfirmation(event.target.value)}
             />
+            <Box textAlign="center" className={classes.box}>
+              <Typography variant="body2">
+                会員登録することで、
+                <Link to="/terms" className={classes.link}>
+                  利用規約
+                </Link>
+                ・
+                <Link to="/privacy" className={classes.link}>
+                  プライバシーポリシー
+                </Link>
+                に同意したものとみなされます。
+              </Typography>
+            </Box>
             <Button
               type="submit"
               variant="contained"
               size="large"
               fullWidth
+              disableElevation
               color="primary"
               disabled={!name || !email || !password || !passwordConfirmation ? true : false}
               className={classes.submitBtn}
@@ -158,7 +180,7 @@ const SignUp: React.FC = () => {
           </CardContent>
         </Card>
       </form>
-      <AlertMessage // エラーが発生した場合はアラートを表示
+      <AlertMessage
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"

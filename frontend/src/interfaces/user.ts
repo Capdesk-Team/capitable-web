@@ -9,16 +9,38 @@ export interface SignInParams {
   email: string
   password: string
 }
+
+export interface UpdateParams {
+  name: string
+  image: string
+  techSkill: string
+  githubUrl: string
+  facebookUrl: string
+  portfolioUrl: string
+  career: string
+  nextCareer: string
+}
+
+export interface UpdateFormData extends FormData {
+  append(name: keyof UpdateParams, value: String | Blob, fileName?: string): any
+}
+
   
 export interface User {
-  id: number
+  id: string
   uid: string
   provider: string
   email: string
   name: string
+  image: {
+    url: string
+  }
+  techSkill: string
+  githubUrl: string
+  facebookUrl: string
+  portfolioUrl: string
+  career: string
+  nextCareer: string
   nickname?: string
-  image?: string
   allowPasswordChange: boolean
-  created_at: Date
-  updated_at: Date
 }

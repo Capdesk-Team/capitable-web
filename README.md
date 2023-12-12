@@ -19,5 +19,5 @@ $ yarn build
 ## ライブラリインストール
 
 ```
-$ yarn add ライブラリ
+/usr/src/app/frontend#  yarn add library
 ```

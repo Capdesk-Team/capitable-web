@@ -12,6 +12,7 @@ export interface Project {
   localtion: string
   work: string
   developmentEnv: string
+  freeDescription: string
 }
 
 export interface CrateProjectData extends FormData {
@@ -29,8 +30,5 @@ export interface getProjectList {
   techStack: number,
   serviceUrl: string,
   userId: string,
-  user: {
-    name: string
-    email: string
-  }
+  createdAt: Date
 }

@@ -7,8 +7,18 @@ import SignUp from "components/pages/SignUp"
 import SignIn from "components/pages/SignIn"
 import ProjectDetail from "components/pages/ProjectDetail"
 import Dashboard from "components/pages/Dashboards"
+import UserProfile from "components/pages/UserProfile"
 import { getCurrentUser } from "api/auth"
 import { User } from "interfaces/user"
+import PrivacyPolicy from "components/pages/PrivacyPolicy";
+import Terms from "components/pages/Terms";
+import GetApplyUsers from "components/pages/GetApplyUsers"
+import SearchUsers from "components/pages/SearchUsers";
+import GetScoutsLikes from "components/pages/GetScoutsLikes";
+import NewProject from "components/pages/NewProject";
+import ChatRooms from "components/pages/ChatRooms";
+import ChatRoom from "components/pages/ChatRoom"
+import UserSkills from "components/pages/UserSkills";
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
@@ -33,7 +43,7 @@ const App: React.FC = () => {
 
       if (res?.data.isLogin === true) {
         setIsSignedIn(true)
-        setCurrentUser(res?.data.data)
+        setCurrentUser(res?.data.currentUser)
 
         console.log(res?.data.data)
       } else {
@@ -71,8 +81,18 @@ const App: React.FC = () => {
               )
               }
             />
+            <Route path="/user/:id" element={<UserProfile/>}/>
             <Route path="/project/:id" element={<ProjectDetail/>}/>
-            <Route path="dashboards" element={<Dashboard/>}/>
+            <Route path="/project/:id/apply" element={<GetApplyUsers/>}/>
+            <Route path="/dashboards" element={<Dashboard/>}/>
+            <Route path="/terms" element={<Terms/>}/>
+            <Route path="/privacy" element={<PrivacyPolicy/>}/>
+            <Route path="/search-users" element={<SearchUsers/>}/>
+            <Route path="/likes" element={<GetScoutsLikes/>}/>
+            <Route path="/new-project" element={<NewProject/>}/>
+            <Route path="/chatrooms" element={<ChatRooms/>}/>
+            <Route path="/chatroom/:id" element={<ChatRoom/>} />
+            <Route path="/user/skills" element={<UserSkills/>}/>
           </Routes>
         </CommonLayout>
       </AuthContext.Provider>

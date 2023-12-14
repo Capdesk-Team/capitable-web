@@ -10,7 +10,7 @@ import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import Chip from '@material-ui/core/Chip'
+// import Chip from '@material-ui/core/Chip'
 import { Grid } from "@material-ui/core"
 
 // Styles
@@ -85,9 +85,9 @@ const Home: React.FC = () => {
                         </span>
                       </Grid>
                     </Grid>
-                    <Typography className={classes.projectItem}>
+                    {/* <Typography className={classes.projectItem}>
                       <Chip label={project.techStack} variant="outlined" />
-                    </Typography>
+                    </Typography> */}
                     <Typography>
                       {project.title}
                     </Typography>

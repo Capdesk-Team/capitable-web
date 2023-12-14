@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   founderCard: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    maxWidth: 180
+    maxWidth: 200
   },
   founderName: {
     fontWeight: 600
@@ -114,6 +114,8 @@ const ProjectDetail:React.FC = () => {
     work: '',
     location: '',
     serviceUrl: '',
+    developmentEnv: '',
+    freeDescription: '',
     user: {
       name: '',
       image: {
@@ -231,8 +233,10 @@ const ProjectDetail:React.FC = () => {
           >
             業務内容
           </span>
+          <Divider />
           {data.content}
         </Typography>
+
         <Divider />
 
         <Typography
@@ -241,8 +245,9 @@ const ProjectDetail:React.FC = () => {
           <span
             className={classes.title}
           >
-            応募条件：
+            応募条件
           </span>
+          <Divider />
           {data.filter}
         </Typography>
         <Divider />
@@ -255,6 +260,7 @@ const ProjectDetail:React.FC = () => {
           >
             こんな方と働きたい
           </span>
+          <Divider />
           {data.seekPerson}
         </Typography>
         <Divider />
@@ -265,8 +271,9 @@ const ProjectDetail:React.FC = () => {
           <span
             className={classes.title}
           >
-            サービスのビジョン：
+            サービスのビジョン
           </span>
+          <Divider />
           {data.vision}
         </Typography>
         <Divider />
@@ -277,8 +284,22 @@ const ProjectDetail:React.FC = () => {
           <span
             className={classes.title}
           >
-            勤務地：
+            開発環境
           </span>
+          <Divider />
+          {data.developmentEnv}
+        </Typography>
+        <Divider />
+
+        <Typography
+          className={classes.content}
+        >
+          <span
+            className={classes.title}
+          >
+            勤務地
+          </span>
+          <Divider />
           {data.location}
         </Typography>
         <Divider />
@@ -291,19 +312,12 @@ const ProjectDetail:React.FC = () => {
           >
             働き方
           </span>
+          <Divider />
           {data.work}
         </Typography>
         <Divider />
 
-        <Typography
-          className={classes.content}
-        >
-          <span
-            className={classes.title}
-          >
-           開発環境
-          </span>
-        </Typography>
+
         <Typography
           className={classes.content}
         >
@@ -312,7 +326,11 @@ const ProjectDetail:React.FC = () => {
           >
             募集を見た方へのメッセージ
           </span>
+          <Divider />
+          {data.freeDescription}
         </Typography>
+        <Divider />
+
         <Divider/>
         <Button
           variant="contained"

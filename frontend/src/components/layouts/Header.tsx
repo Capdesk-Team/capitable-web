@@ -144,7 +144,7 @@ const Header: React.FC = () => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
               >
-                <Avatar src={`http://localhost:3001/${currentUser?.image.url}`} className={classes.avatar}/>
+                <Avatar src={`${currentUser?.image.url}`} className={classes.avatar}/>
               </IconButton>
               <Menu
                 anchorEl={anchorEl}

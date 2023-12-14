@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useContext } from "react"
+import { Link } from "react-router-dom"
+import { AuthContext } from "App"
+// API
+import { getProject } from 'api/project'
+// Interfaces
+import { getProjectList } from 'interfaces/project'
+// Material UI
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { Link } from "react-router-dom"
-import { AuthContext } from "App"
-import { getProject } from 'api/project'
-import { getProjectList } from 'interfaces/project'
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import Chip from '@material-ui/core/Chip'
 import { Grid } from "@material-ui/core"
+
+// Styles
+import { makeStyles, Theme } from "@material-ui/core/styles"
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -17,9 +23,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   image: {
     border: 'solid 1px #dfdfdf',
     borderRadius: 4
+  },
+  projectItem: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  },
+  companyName: {
+    fontWeight: 600,
+    fontSize: 16
   }
 }))
-
 
 const Home: React.FC = () => {
   const [projectList, setProjectList ] = useState<getProjectList[]>([]);
@@ -53,25 +66,39 @@ const Home: React.FC = () => {
             </Typography>
             <Grid container spacing={4} className={classes.container}>
               {projectList.map((project: getProjectList, index) => (
-              <Grid key={index} item xs={12} md={4}>
-                <Card>
+              <Grid container key={index} item xs={12} md={4}>
+                <Card elevation={1}>
                   <CardContent>
-                    <img　src={project.image.url} alt="企業イメージ" className={classes.image} width="120" height="120"/>
-                    <Typography
-                    variant="h6"
-                    >
-                      {project.companyName}
+                    <Grid container alignItems="center" spacing={2}>
+                      <Grid item>
+                        <img
+                          src={`${project.image.url}`}
+                          alt="企業イメージ"
+                          className={classes.image}
+                          width="72"
+                          height="72"
+                        />
+                      </Grid>
+                      <Grid item>
+                        <span className={classes.companyName}>
+                          {project.companyName}
+                        </span>
+                      </Grid>
+                    </Grid>
+                    <Typography className={classes.projectItem}>
+                      <Chip label={project.techStack} variant="outlined" />
                     </Typography>
                     <Typography>
                       {project.title}
                     </Typography>
                     <Button
-                        component={Link}
-                        to={`/project/${project.id}`}
-                        color="primary"
-                        variant="outlined"
-                      >
-                        求人詳細へ
+                      className={classes.projectItem}
+                      component={Link}
+                      to={`/project/${project.id}`}
+                      color="primary"
+                      variant="outlined"
+                    >
+                      求人詳細へ
                     </Button>
                   </CardContent>
                 </Card>

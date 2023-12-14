@@ -162,8 +162,8 @@ const NewProject:React.FC = () => {
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                value={companyName}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompanyName(e.target.value)}
+                value={serviceUrl}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setServiceUrl(e.target.value)}
               />
             </Typography>
             
@@ -346,12 +346,6 @@ const NewProject:React.FC = () => {
           </CardContent>
       </Card>
     </form>
-    <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="プロジェクトの作成に失敗しました"
-      />
     <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}

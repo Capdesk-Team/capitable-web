@@ -237,8 +237,6 @@ const ProjectDetail:React.FC = () => {
           {data.content}
         </Typography>
 
-        <Divider />
-
         <Typography
           className={classes.content}
         >
@@ -250,7 +248,6 @@ const ProjectDetail:React.FC = () => {
           <Divider />
           {data.filter}
         </Typography>
-        <Divider />
 
         <Typography
           className={classes.content}
@@ -263,7 +260,6 @@ const ProjectDetail:React.FC = () => {
           <Divider />
           {data.seekPerson}
         </Typography>
-        <Divider />
 
         <Typography
           className={classes.content}
@@ -276,7 +272,6 @@ const ProjectDetail:React.FC = () => {
           <Divider />
           {data.vision}
         </Typography>
-        <Divider />
 
         <Typography
           className={classes.content}
@@ -289,7 +284,6 @@ const ProjectDetail:React.FC = () => {
           <Divider />
           {data.developmentEnv}
         </Typography>
-        <Divider />
 
         <Typography
           className={classes.content}
@@ -302,7 +296,6 @@ const ProjectDetail:React.FC = () => {
           <Divider />
           {data.location}
         </Typography>
-        <Divider />
 
         <Typography
           className={classes.content}
@@ -315,8 +308,6 @@ const ProjectDetail:React.FC = () => {
           <Divider />
           {data.work}
         </Typography>
-        <Divider />
-
 
         <Typography
           className={classes.content}
@@ -329,7 +320,6 @@ const ProjectDetail:React.FC = () => {
           <Divider />
           {data.freeDescription}
         </Typography>
-        <Divider />
 
         <Divider/>
         <Button

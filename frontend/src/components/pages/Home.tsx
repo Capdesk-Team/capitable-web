@@ -10,8 +10,8 @@ import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-// import Chip from '@material-ui/core/Chip'
 import { Grid } from "@material-ui/core"
+
 
 // Styles
 import { makeStyles, Theme } from "@material-ui/core/styles"
@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   companyName: {
     fontWeight: 600,
     fontSize: 16
+  },
+  projectCard: {
+    minWidth: 360
   }
 }))
 
@@ -62,12 +65,12 @@ const Home: React.FC = () => {
             <Typography
               variant="h6"
             >
-              スタートアップ一覧
+              スタートアップを見つける
             </Typography>
             <Grid container spacing={4} className={classes.container}>
               {projectList.map((project: getProjectList, index) => (
               <Grid container key={index} item xs={12} md={4}>
-                <Card elevation={1}>
+                <Card elevation={1} className={classes.projectCard}>
                   <CardContent>
                     <Grid container alignItems="center" spacing={2}>
                       <Grid item>

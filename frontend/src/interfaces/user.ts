@@ -11,6 +11,7 @@ export interface SignInParams {
 }
 
 export interface UpdateParams {
+  id: string | undefined | null
   name: string
   image: string
   techSkill: string

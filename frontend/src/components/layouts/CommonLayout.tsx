@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Container, Grid } from "@material-ui/core"
+import { Container } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
 import Header from "components/layouts/Header"

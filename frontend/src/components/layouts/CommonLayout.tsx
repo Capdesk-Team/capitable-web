@@ -15,7 +15,8 @@ const useStyles = makeStyles(() => ({
     boxSizing: "border-box",
   },
   container: {
-    marginTop: "3rem"
+    marginTop: "3rem",
+    marginBottom: "3rem"
   },
 }))
 

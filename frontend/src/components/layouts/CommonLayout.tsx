@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     marginTop: "3rem",
-    marginBottom: "6rem"
+    marginBottom: "6rem",
   },
 }))
 

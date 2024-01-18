@@ -4,8 +4,7 @@ import { Link } from "react-router-dom"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
 import { Container, Grid } from "@material-ui/core"
-
-  import { 
+import { 
   Typography,
 } from "@material-ui/core"
 // Import Style

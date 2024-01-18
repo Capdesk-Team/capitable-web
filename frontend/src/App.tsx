@@ -19,7 +19,7 @@ import NewProject from "components/pages/NewProject";
 import ChatRooms from "components/pages/ChatRooms";
 import ChatRoom from "components/pages/ChatRoom"
 import UserSkills from "components/pages/UserSkills";
-import ReviewUsers from "components/pages/ReviewUsers";
+// import ReviewUsers from "components/pages/ReviewUsers";
 import Index from "components/layouts/Index";
 import CompanyRegister from "components/pages/companies/CompanyRegister";
 import Jobs from "components/pages/jobs/Index";
@@ -104,7 +104,7 @@ const App: React.FC = () => {
             <Route path="/chatrooms" element={<ChatRooms/>}/>
             <Route path="/chatroom/:id" element={<ChatRoom/>} />
             <Route path="/user/skills" element={<UserSkills/>}/>
-            <Route path="/review/users" element={<ReviewUsers/>}/>
+            {/* <Route path="/review/users" element={<ReviewUsers/>}/> */}
             <Route path="/jobs" element={<Jobs/>}/>
             <Route path="/communities" element={<Community/>}/>
             <Route path="/user/settings" element={<UserSettings/>}/>

@@ -4,9 +4,12 @@ import { AuthContext } from "App"
 import Cookies from "js-cookie"
 // API
 import { signUp } from "api/auth"
+import client from "api/client"
+import GoogleLogin from "react-google-login";
 // Interfaces
 import { SignUpParams } from "interfaces/user"
 // Material UI
+import { Container, Grid } from "@material-ui/core"
 import TextField from "@material-ui/core/TextField"
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
@@ -18,13 +21,23 @@ import { Typography } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 // Components
 import AlertMessage from "components/utils/AlertMessage"
+import Header from "components/layouts/Header"
+import Footer from "components/layouts/Footer"
+import axios from "axios"
 
+const CLIENT_ID = "82222448142-ps0kj15o3qalndb5vb71tp57n153vd3i.apps.googleusercontent.com";
+
+// Styles
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    marginTop: theme.spacing(6)
+  signupBtn: {
+    marginTop: theme.spacing(1),
+    flexGrow: 1,
+    textTransform: "none",
+    fontWeight: 600,
+    backgroundColor: "#186aff",
   },
   submitBtn: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
     flexGrow: 1,
     textTransform: "none"
   },
@@ -46,6 +59,27 @@ const useStyles = makeStyles((theme: Theme) => ({
       textDecoration: "none", 
     }
   },
+  snsIcon: {
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1)
+  },
+  switchText: {
+    textAlign: "center",
+    marginTop: theme.spacing(2),
+    fontSize: 10,
+    color: '#AFAFAF'
+  },
+  wrapper: {
+    height: '100%',
+    minHeight: '100vh',
+    position: 'relative',
+    paddingBottom: 120,
+    boxSizing: "border-box",
+  },
+  container: {
+    marginTop: "3rem",
+    marginBottom: "6rem"
+  },
 }))
 
 // サインアップ用ページ
@@ -60,6 +94,10 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
+  const success = () => {
+    navigate("/signin");
+  };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -85,7 +123,7 @@ const SignUp: React.FC = () => {
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
 
-        navigate("/")
+        navigate("/home")
 
         console.log("ログインに成功しました")
       } else {
@@ -97,17 +135,56 @@ const SignUp: React.FC = () => {
     }
   }
 
+
+  // Google新規登録処理
+  const handleGoogleSignUp = async () => {
+
+    window.location.href = 'http://localhost:3001/api/v1/users/auth/google_oauth2/callback'; // Railsの認証へのリダイレクトURL
+
+    try {
+      const res = await axios.post('http://localhost:3001/api/v1/users/auth/google_oauth2/', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true, // クロスサイトの場合、クッキーが必要な場合があります
+      });
+      
+      console.log(res.data)
+      // リダイレクトなど、必要な処理を実行
+    } catch (error) {
+      // エラー処理
+    }
+  };
+
+  // GitHub新規登録処理
+  const handleGitHubSignUp = async () => {
+    try {
+      const res = await client.get('/users/auth/google_oauth2');
+      // リダイレクトなど、必要な処理を実行
+    } catch (error) {
+      // エラー処理
+    }
+  };
+
+
   return (
     <>
-      <form noValidate autoComplete="off">
+      <div className={classes.wrapper}>
+      <header>
+        <Header/>
+      </header>
+      <Container className={classes.container}>
+        <Grid container alignItems="center" justify="center" spacing={4}>
+
+        <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="新規登録" />
+          <CardHeader className={classes.header} title="無料で新規登録" />
           <CardContent>
             <TextField
               variant="outlined"
               required
               fullWidth
-              label="お名前"
+              label="お名前(フルネーム)"
               value={name}
               margin="dense"
               onChange={event => setName(event.target.value)}
@@ -143,6 +220,20 @@ const SignUp: React.FC = () => {
               autoComplete="current-password"
               onChange={event => setPasswordConfirmation(event.target.value)}
             />
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              fullWidth
+              disableElevation
+              color="primary"
+              disabled={!name || !email || !password || !passwordConfirmation ? true : false}
+              className={classes.signupBtn}
+              onClick={handleSubmit}
+            >
+              登録する
+            </Button>
+
             <Box textAlign="center" className={classes.box}>
               <Typography variant="body2">
                 会員登録することで、
@@ -156,19 +247,7 @@ const SignUp: React.FC = () => {
                 に同意したものとみなされます。
               </Typography>
             </Box>
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              disableElevation
-              color="primary"
-              disabled={!name || !email || !password || !passwordConfirmation ? true : false}
-              className={classes.submitBtn}
-              onClick={handleSubmit}
-            >
-              登録する
-            </Button>
+            
             <Box textAlign="center" className={classes.box}>
               <Typography variant="body2">
                 アカウントをお持ちですか? &nbsp;
@@ -180,12 +259,18 @@ const SignUp: React.FC = () => {
           </CardContent>
         </Card>
       </form>
+      </Grid>
+      </Container>
+      <footer>
+        <Footer/>
+      </footer>
       <AlertMessage
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
         message="メールアドレスかパスワードが違います"
       />
+      </div>
     </>
   )
 }

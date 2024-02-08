@@ -3,7 +3,6 @@ import Divider from '@material-ui/core/Divider'
 // Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
-
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   footer: {
@@ -17,7 +16,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   list: {
     listStyle: 'none'
-  }
+  },
+  link: {
+    color: '#ffffff', // リンクのデフォルト色
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline', // マウスオーバー時の下線
+    },
+    '&:visited': {
+      color: '#ffffff', // visited状態のリンクの色
+    },
+  },
 }))
 
 
@@ -29,9 +38,21 @@ const Footer: React.FC = () => {
       <div className={classes.footer}>
         <Divider/>
           <ul className={classes.list}>
-            <li>利用規約</li>
-            <li>プライバシーポリシー</li>
-            <li>お問い合わせ</li>
+            <li>
+              <a href="/terms" className={classes.link}>
+                利用規約
+              </a>
+            </li>
+            <li>
+              <a href="/privacy" className={classes.link}>
+                プライバシーポリシー
+              </a>
+            </li>
+            <li>
+              <a href="https://forms.gle/H65NorqmpAKfR8y17" className={classes.link}>
+                お問い合わせ
+              </a>
+            </li>
             <li>© Capitable</li>
           </ul>
       </div>

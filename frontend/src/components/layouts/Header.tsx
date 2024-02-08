@@ -3,8 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie"
 
 import { signOut } from "api/auth"
+// Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
+// Material UI
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
@@ -16,7 +18,12 @@ import Divider from '@material-ui/core/Divider'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { AuthContext } from "App"
+
+// Material Icons
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+// Components
+import CustomizedMenus from '../pages/Community'
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -34,7 +41,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   linkBtn: {
     textTransform: "none",
-    margin: 4
+    margin: 4,
+    fontWeight: 600
   },
   avatar: {
     width: 50,
@@ -76,7 +84,13 @@ const useStyles = makeStyles((theme: Theme) => ({
         horizontal: 'right',
       },
     },
-  }
+  },
+  linkSignUp: {
+    textTransform: "none",
+    margin: 4,
+    fontWeight: 600,
+    backgroundColor: '#186aff'
+  },
 }))
 
 const Header: React.FC = () => {
@@ -123,13 +137,22 @@ const Header: React.FC = () => {
       if (isSignedIn) {
         return (
             <>
+              <CustomizedMenus/>
               <Button
                 color="inherit"
                 className={classes.linkBtn}
                 component={Link}
-                to="/dashboards"  
+                to="/company/register-form"  
               >
-                プロジェクト管理画面へ
+                法人登録をおこなう
+              </Button>
+              <Button
+                color="inherit"
+                className={classes.linkBtn}
+                component={Link}
+                to="/dashboards"
+              >
+                法人ダッシュボードへ
               </Button>
               <IconButton
                 component={Link}
@@ -157,7 +180,7 @@ const Header: React.FC = () => {
               <MenuItem 
                 onClick={handleClose}
                 component={Link}
-                to={`/user/${currentUser?.id}`}
+                to={`/user/${currentUser?.uuid}`}
                 //ログインユーザーのidを取得
               >
                 <ListItemIcon>
@@ -181,6 +204,15 @@ const Header: React.FC = () => {
       } else {
         return (
           <>
+            <CustomizedMenus/>
+            <Button
+              component={Link}
+              to="https://forms.gle/H65NorqmpAKfR8y17"
+              target="_blank"
+              className={classes.linkBtn}
+            >
+              法人の方はこちらから
+            </Button>
             <Button
               component={Link}
               to="/signin"
@@ -194,10 +226,11 @@ const Header: React.FC = () => {
               component={Link}
               to="/signup"
               color="primary"
-              variant="outlined"
-              className={classes.linkBtn}
+              variant="contained"
+              disableElevation
+              className={classes.linkSignUp}
             >
-              新規登録
+              無料で新規登録
             </Button>
           </>
         )
@@ -213,7 +246,7 @@ const Header: React.FC = () => {
         <Toolbar>
           <Typography
             component={Link}
-            to="/"
+            to="/home"
             variant="h6"
             className={classes.title}
           >

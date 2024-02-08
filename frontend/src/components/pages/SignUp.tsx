@@ -4,8 +4,6 @@ import { AuthContext } from "App"
 import Cookies from "js-cookie"
 // API
 import { signUp } from "api/auth"
-import client from "api/client"
-import GoogleLogin from "react-google-login";
 // Interfaces
 import { SignUpParams } from "interfaces/user"
 // Material UI
@@ -23,9 +21,6 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import AlertMessage from "components/utils/AlertMessage"
 import Header from "components/layouts/Header"
 import Footer from "components/layouts/Footer"
-import axios from "axios"
-
-const CLIENT_ID = "82222448142-ps0kj15o3qalndb5vb71tp57n153vd3i.apps.googleusercontent.com";
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -94,11 +89,6 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
-
-  const success = () => {
-    navigate("/signin");
-  };
-
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
@@ -135,38 +125,6 @@ const SignUp: React.FC = () => {
     }
   }
 
-
-  // Google新規登録処理
-  const handleGoogleSignUp = async () => {
-
-    window.location.href = 'http://localhost:3001/api/v1/users/auth/google_oauth2/callback'; // Railsの認証へのリダイレクトURL
-
-    try {
-      const res = await axios.post('http://localhost:3001/api/v1/users/auth/google_oauth2/', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true, // クロスサイトの場合、クッキーが必要な場合があります
-      });
-      
-      console.log(res.data)
-      // リダイレクトなど、必要な処理を実行
-    } catch (error) {
-      // エラー処理
-    }
-  };
-
-  // GitHub新規登録処理
-  const handleGitHubSignUp = async () => {
-    try {
-      const res = await client.get('/users/auth/google_oauth2');
-      // リダイレクトなど、必要な処理を実行
-    } catch (error) {
-      // エラー処理
-    }
-  };
-
-
   return (
     <>
       <div className={classes.wrapper}>
@@ -177,88 +135,88 @@ const SignUp: React.FC = () => {
         <Grid container alignItems="center" justify="center" spacing={4}>
 
         <form noValidate autoComplete="off">
-        <Card className={classes.card}>
-          <CardHeader className={classes.header} title="無料で新規登録" />
-          <CardContent>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="お名前(フルネーム)"
-              value={name}
-              margin="dense"
-              onChange={event => setName(event.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="メールアドレス"
-              value={email}
-              margin="dense"
-              onChange={event => setEmail(event.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="パスワード"
-              type="password"
-              value={password}
-              margin="dense"
-              autoComplete="current-password"
-              onChange={event => setPassword(event.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="パスワード(確認用)"
-              type="password"
-              value={passwordConfirmation}
-              margin="dense"
-              autoComplete="current-password"
-              onChange={event => setPasswordConfirmation(event.target.value)}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              disableElevation
-              color="primary"
-              disabled={!name || !email || !password || !passwordConfirmation ? true : false}
-              className={classes.signupBtn}
-              onClick={handleSubmit}
-            >
-              登録する
-            </Button>
+          <Card className={classes.card}>
+            <CardHeader className={classes.header} title="無料で新規登録" />
+            <CardContent>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="お名前(フルネーム)"
+                value={name}
+                margin="dense"
+                onChange={event => setName(event.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="メールアドレス"
+                value={email}
+                margin="dense"
+                onChange={event => setEmail(event.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="パスワード"
+                type="password"
+                value={password}
+                margin="dense"
+                autoComplete="current-password"
+                onChange={event => setPassword(event.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="パスワード(確認用)"
+                type="password"
+                value={passwordConfirmation}
+                margin="dense"
+                autoComplete="current-password"
+                onChange={event => setPasswordConfirmation(event.target.value)}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                fullWidth
+                disableElevation
+                color="primary"
+                disabled={!name || !email || !password || !passwordConfirmation ? true : false}
+                className={classes.signupBtn}
+                onClick={handleSubmit}
+              >
+                登録する
+              </Button>
 
-            <Box textAlign="center" className={classes.box}>
-              <Typography variant="body2">
-                会員登録することで、
-                <Link to="/terms" className={classes.link}>
-                  利用規約
-                </Link>
-                ・
-                <Link to="/privacy" className={classes.link}>
-                  プライバシーポリシー
-                </Link>
-                に同意したものとみなされます。
-              </Typography>
-            </Box>
-            
-            <Box textAlign="center" className={classes.box}>
-              <Typography variant="body2">
-                アカウントをお持ちですか? &nbsp;
-                <Link to="/signin" className={classes.link}>
-                  ログインはこちらから
-                </Link>
-              </Typography>
-            </Box>
-          </CardContent>
-        </Card>
-      </form>
+              <Box textAlign="center" className={classes.box}>
+                <Typography variant="body2">
+                  会員登録することで、
+                  <Link to="/terms" className={classes.link}>
+                    利用規約
+                  </Link>
+                  ・
+                  <Link to="/privacy" className={classes.link}>
+                    プライバシーポリシー
+                  </Link>
+                  に同意したものとみなされます。
+                </Typography>
+              </Box>
+              
+              <Box textAlign="center" className={classes.box}>
+                <Typography variant="body2">
+                  アカウントをお持ちですか? &nbsp;
+                  <Link to="/signin" className={classes.link}>
+                    ログインはこちらから
+                  </Link>
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </form>
       </Grid>
       </Container>
       <footer>

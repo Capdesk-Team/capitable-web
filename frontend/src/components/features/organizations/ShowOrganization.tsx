@@ -13,7 +13,7 @@ import FeaturedPost from './FeaturedPost';
 import Main from './Main';
 import Sidebar from './Sidebar';
 import { Divider } from '@mui/material';
-import MenuTab from '../jobs/MenuTab';
+import MenuTab from './MenuTab';
 
 const useStyles = makeStyles((theme: Theme) => ({
     image: {

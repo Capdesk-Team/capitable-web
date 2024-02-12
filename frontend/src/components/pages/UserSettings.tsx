@@ -27,8 +27,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@mui/material/Paper';
 
 // Components
-import EditProfile from './EditProfile';
-import SocialAccount from 'components/features/users/SocialAccount';
 // Material Icons
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 

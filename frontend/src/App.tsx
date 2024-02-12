@@ -10,9 +10,9 @@ import { getCurrentUser } from "api/auth"
 import { User } from "interfaces/user"
 import PrivacyPolicy from "components/pages/PrivacyPolicy";
 import Terms from "components/pages/Terms";
-import GetApplyUsers from "components/pages/GetApplyUsers"
-import SearchUsers from "components/pages/SearchUsers";
-import GetScoutsLikes from "components/pages/GetScoutsLikes";
+// import GetApplyUsers from "components/pages/GetApplyUsers"
+// import SearchUsers from "components/pages/SearchUsers";
+// import GetScoutsLikes from "components/pages/GetScoutsLikes";
 // import ChatRooms from "components/pages/ChatRooms";
 // import ChatRoom from "components/pages/ChatRoom"
 import UserSkills from "components/pages/UserSkills";
@@ -86,12 +86,12 @@ const App: React.FC = () => {
               }
             />
             <Route path="/user/:id" element={<UserProfile/>}/>
-            <Route path="/job/:id/apply" element={<GetApplyUsers/>}/>
+            {/* <Route path="/job/:id/apply" element={<GetApplyUsers/>}/> */}
             <Route path="/dashboards" element={<Dashboard/>}/>
             <Route path="/terms" element={<Terms/>}/>
             <Route path="/privacy" element={<PrivacyPolicy/>}/>
-            <Route path="/search-users" element={<SearchUsers/>}/>
-            <Route path="/likes" element={<GetScoutsLikes/>}/>
+            {/* <Route path="/search-users" element={<SearchUsers/>}/>
+            <Route path="/likes" element={<GetScoutsLikes/>}/> */}
             {/* <Route path="/chatrooms" element={<ChatRooms/>}/>
             <Route path="/chatroom/:id" element={<ChatRoom/>} /> */}
             <Route path="/user/skills" element={<UserSkills/>}/>

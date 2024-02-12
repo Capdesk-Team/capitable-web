@@ -122,7 +122,7 @@ const RegisterOrganization:React.FC = () => {
   const createFormData = (): CreateOrganizationData => { 
     const formData = new FormData()
 
-    formData.append("userId", currentUser?.id || "")
+    formData.append("userId", currentUser?.id.toString() || "")
     formData.append("name", name)
     formData.append("presidentName", presidentName)
     formData.append("email", email)

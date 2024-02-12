@@ -5,10 +5,8 @@ const options = {
   ignoreHeaders: true 
 }
 
-// const baseURL = process.env.REACT_APP_BASE_URL
-
 const client = applyCaseMiddleware(axios.create({
-  baseURL: 'https://equity-api-c7b3f7cf04dc.herokuapp.com/api/v1'
+  baseURL:  'http://localhost:3001/api/v1/'
 }), options)
 
 export default client

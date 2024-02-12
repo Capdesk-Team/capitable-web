@@ -2,6 +2,7 @@ import client from "api/client"
 import { UpdateFormData } from "interfaces/user"
 import Cookies from "js-cookie"
 
+// ユーザー一覧を取得
 export const getUsers = () => {
   return client.get("users", {
     headers: {
@@ -18,12 +19,12 @@ export const getUser = (id: number | undefined) => {
 }
 
 // ユーザー情報を更新
-export const updateUser = (id: string | undefined | null, data: UpdateFormData) => {
+export const updateUser = (id: number | undefined, data: UpdateFormData) => {
   return client.put(`users/${id}`, data)
 }
 
 //ユーザーが作成したプロジェクトを作成
-export const getOwnProject = (id: number | undefined) => {
+export const getOwnJob = (id: number | undefined) => {
   return client.get(`users/${id}`, { 
     headers: {
       "access-token": Cookies.get("_access_token"),

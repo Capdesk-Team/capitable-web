@@ -2,8 +2,8 @@ import client from "api/client"
 import Cookies from "js-cookie"
 import { Apply } from 'interfaces/apply'
 
-export const getApply = (id: string) => {
-  return client.get(`/projects/${id}/apply`, {
+export const getApply = (id: number) => {
+  return client.get(`/jobs/${id}/apply`, {
     headers: {
       "access-token": Cookies.get("_access_token"),
       "client": Cookies.get("_client"),
@@ -12,8 +12,8 @@ export const getApply = (id: string) => {
   }) 
 };
 
-export const showApplyUser = (id: string) => {
-  return client.get(`/projects/${id}/apply/${id}`, {
+export const showApplyUser = (id: number) => {
+  return client.get(`/jobs/${id}/apply/${id}`, {
     headers: {
       "access-token": Cookies.get("_access_token"),
       "client": Cookies.get("_client"),
@@ -22,6 +22,6 @@ export const showApplyUser = (id: string) => {
   })
 };
 
-export const createApply = (data: Apply, id: string) => {
-  return client.post(`/projects/${id}/apply`, data)
+export const createApply = (data: Apply, id: number) => {
+  return client.post(`/jobs/${id}/apply`, data)
 };

@@ -4,12 +4,13 @@ import { Link } from "react-router-dom"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
 import { Container, Grid } from "@material-ui/core"
+
 import { 
   Typography,
 } from "@material-ui/core"
 // Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
-
+// Components
 import Header from "components/layouts/Header"
 import Footer from "components/layouts/Footer"
 // Styles
@@ -70,6 +71,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   flexContainer: {
     display: 'flex',
+    flexDirection: 'column',  // スマートフォンでは縦に並べる
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row'
     }
@@ -141,19 +143,25 @@ const Index: React.FC = () => {
               実務を通して得られるスキル機能をAll in Oneで提供することで、新しいキャリアを築くのを支援します
             </span>
 
-          
-            <Box>
-              <Button
-                size="large"
-                disableElevation
-                color="primary"
-                variant="contained"  
-                className={classes.linkSignUp}
-                component={Link}
-                to="/signup"
-              >
-                無料で新規登録
-              </Button>
+            <Grid container spacing={1}>
+
+              <Grid item >
+
+                <Button
+                  size="large"
+                  disableElevation
+                  color="primary"
+                  variant="contained"  
+                  className={classes.linkSignUp}
+                  component={Link}
+                  to="/signup"
+                >
+                  無料で新規登録
+                </Button>
+
+              </Grid>
+
+              <Grid item >
 
               <Button
                 variant="outlined"
@@ -166,7 +174,9 @@ const Index: React.FC = () => {
               > 
                 法人の方はこちらから
               </Button>
-            </Box>
+
+              </Grid>
+            </Grid>
           
             <Box textAlign="center" className={classes.box}>
               <Typography variant="body2">
@@ -178,6 +188,14 @@ const Index: React.FC = () => {
             </Box>
           </div>
         </div>
+
+        {/* 導入企業 */}
+        <h2 className={classes.secondHeading}>導入企業</h2>
+        <Grid container alignItems="center" justify="center" spacing={4}>
+          <Grid item >
+            <img src="/kenzo_logo.png" width="80" height="80" alt="ホームアイコン" className={classes.snsIcon} />
+          </Grid>
+        </Grid>
 
         {/* 利用方法 */}
         <h2 className={classes.secondHeading}>利用方法</h2>
@@ -241,7 +259,7 @@ const Index: React.FC = () => {
             </Button>
           </Grid>
           <Grid item>
-            <img src="/capitable_feature.png" width="360" height="340" alt="ホームアイコン" className={classes.snsIcon} />
+            <img src="/capitable_feature_second.png" width="360" height="340" alt="ホームアイコン" className={classes.snsIcon} />
           </Grid>
         </Grid>
       </div>

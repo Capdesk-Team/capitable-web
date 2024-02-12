@@ -1,5 +1,5 @@
 export interface Like {
   id?: number
-  fromUserId: string | undefined | null
-  toUserId: string | undefined | null
+  fromUserId: number | undefined | null
+  toUserId: number | undefined | null
 }

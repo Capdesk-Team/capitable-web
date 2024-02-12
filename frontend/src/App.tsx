@@ -1,11 +1,9 @@
 import React, { useState, useEffect, createContext } from "react"
 import { BrowserRouter as Router, Routes, Route, Navigate  } from "react-router-dom";
 
-// import CommonLayout from "components/layouts/CommonLayout"
 import Home from "components/pages/Home"
 import SignUp from "components/pages/SignUp"
 import SignIn from "components/pages/SignIn"
-import ProjectDetail from "components/pages/ProjectDetail"
 import Dashboard from "components/pages/dashboards/Dashboard"
 import UserProfile from "components/pages/UserProfile"
 import { getCurrentUser } from "api/auth"
@@ -15,21 +13,17 @@ import Terms from "components/pages/Terms";
 import GetApplyUsers from "components/pages/GetApplyUsers"
 import SearchUsers from "components/pages/SearchUsers";
 import GetScoutsLikes from "components/pages/GetScoutsLikes";
-import NewProject from "components/pages/NewProject";
 import ChatRooms from "components/pages/ChatRooms";
 import ChatRoom from "components/pages/ChatRoom"
 import UserSkills from "components/pages/UserSkills";
-// import ReviewUsers from "components/pages/ReviewUsers";
 import Index from "components/layouts/Index";
-import CompanyRegister from "components/pages/companies/CompanyRegister";
-import Jobs from "components/pages/jobs/Index";
+import JobRegister from "components/features/jobs/JobRegister";
 import Community from "components/pages/Community"
 import UserSettings from "components/pages/UserSettings";
-import CreateJob from "components/pages/jobs/forms/CreateJob"
-import Scrap from "components/pages/Scrap"
 import EngineerCommunity from "components/pages/EngineerCommunity";
-import FounderCommunity from "components/pages/FounderCommunity";
-
+import JobShow from "components/features/jobs/Index";
+import RegisterOrganization from "components/pages/RegisterOrganization";
+import ShowOrganization from "components/features/organizations/ShowOrganization";
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
   loading: boolean
@@ -77,7 +71,6 @@ const App: React.FC = () => {
             <Route path="/" element={<Index/>}/>
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/signin" element={<SignIn/>}/>
-            <Route path="/company/register-form" element={<CompanyRegister/>}/>
             <Route
               path="/home"
               element={
@@ -93,26 +86,23 @@ const App: React.FC = () => {
               }
             />
             <Route path="/user/:id" element={<UserProfile/>}/>
-            <Route path="/project/:id" element={<ProjectDetail/>}/>
-            <Route path="/project/:id/apply" element={<GetApplyUsers/>}/>
+            <Route path="/job/:id/apply" element={<GetApplyUsers/>}/>
             <Route path="/dashboards" element={<Dashboard/>}/>
             <Route path="/terms" element={<Terms/>}/>
             <Route path="/privacy" element={<PrivacyPolicy/>}/>
             <Route path="/search-users" element={<SearchUsers/>}/>
             <Route path="/likes" element={<GetScoutsLikes/>}/>
-            <Route path="/new-project" element={<NewProject/>}/>
             <Route path="/chatrooms" element={<ChatRooms/>}/>
             <Route path="/chatroom/:id" element={<ChatRoom/>} />
             <Route path="/user/skills" element={<UserSkills/>}/>
-            {/* <Route path="/review/users" element={<ReviewUsers/>}/> */}
-            <Route path="/jobs" element={<Jobs/>}/>
             <Route path="/communities" element={<Community/>}/>
             <Route path="/user/settings" element={<UserSettings/>}/>
-            <Route path="/company/new-jobs" element={<CreateJob/>}/>
-            <Route path="/scrap" element={<Scrap/>}/>
             <Route path="/dashboards" element={<Dashboard/>}/>
             <Route path="/community/engineer" element={<EngineerCommunity/>}/>
-            <Route path="/community/founder" element={<FounderCommunity/>}/>
+            <Route path="/company/new-job" element={<JobRegister/>}/>
+            <Route path="/job/:id" element={<JobShow/>}/>
+            <Route path="/company/register-form" element={<RegisterOrganization/>}/>
+            <Route path="/organization/:id" element={<ShowOrganization/>}/>
           </Routes>
       </AuthContext.Provider>
     </Router>

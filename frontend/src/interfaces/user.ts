@@ -11,7 +11,7 @@ export interface SignInParams {
 }
 
 export interface UpdateParams {
-  id: string | undefined | null
+  id: number | undefined | null
   name: string
   image: string
   techSkill: string
@@ -28,8 +28,9 @@ export interface UpdateFormData extends FormData {
 
   
 export interface User {
-  id: string
+  id: number
   uid: string
+  uuid: string
   provider: string
   email: string
   name: string

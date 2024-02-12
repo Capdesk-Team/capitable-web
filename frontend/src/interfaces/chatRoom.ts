@@ -4,7 +4,7 @@ import { Message } from "./message"
 // チャットルーム
 export interface ChatRoom {
   chatRoom: {
-    id: string
+    id: number
   },
   otherUser: User,
   lastMessage: Message

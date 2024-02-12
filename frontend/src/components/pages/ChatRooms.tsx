@@ -1,121 +1,206 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-
-// API
-import { getChatRooms } from "api/chat_room"
-// Interfaces
-import { ChatRoom } from "interfaces/chatRoom" 
-
-// Material UI
-import { Grid, Typography } from "@material-ui/core"
+import React, { useContext } from 'react';
+import { AuthContext } from "App"
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Avatar from "@material-ui/core/Avatar"
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import FormControl from "@material-ui/core/FormControl"
+import MenuItem from "@material-ui/core/MenuItem"
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-// Styles
+// import { secondaryListItems } from './ListItems';
+import { ProfileListItems } from './ProfileListItems';
+import { Card, CardContent } from '@material-ui/core';
+import Button from "@material-ui/core/Button"
+import EditIcon from '@material-ui/icons/Edit';
+import Paper from '@mui/material/Paper';
+
+// Components
+import EditProfile from './EditProfile';
+import ChatRoomsLists from './ChatRoomLists';
+import SocialAccount from 'components/features/users/SocialAccount';
+// Material Icons
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+
+// Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
+// Style
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    flexGrow: 1,
-    minWidth: 340,
-    maxWidth: "100%"
+  profileCard: {
+    margin: theme.spacing(4),
+    maxWidth: 720
   },
-  link: {
-    textDecoration: "none",
-    color: "inherit"
-  }
+  profileContent: {
+    color: 'gray',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
+    fontWeight: 'bold',
+    border: 'solid 1px #dfdfdf',
+    borderRadius: 5,
+    minHeight: 64
+  },
+  
 }))
 
-// チャットルーム一覧ページ
-const ChatRooms: React.FC = () => {
-  const classes = useStyles()
 
-  const [loading, setLoading] = useState<boolean>(true)
-  const [chatRooms, setChatRooms] = useState<ChatRoom[]>([])
+const drawerWidth: number = 240;
 
-  const handleGetChatRooms = async () => {
-    try {
-      const res = await getChatRooms()
-
-      if (res.status === 200) {
-        setChatRooms(res.data.chatRooms)
-      } else {
-        console.log("No chat rooms")
-      }
-    } catch (err) {
-      console.log(err)
-    }
-
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    handleGetChatRooms()
-  }, [])
-
-  return (
-    <>
-      <Typography variant="h6">
-        メッセージ一覧
-      </Typography>            
-      {
-        !loading ? (
-          chatRooms.length > 0 ? (
-            chatRooms.map((chatRoom: ChatRoom, index: number) => {
-              return (
-                <Grid container key={index}>
-                  <List>
-                    {/* 個別のチャットルームへ飛ばす */}
-                    <Link to={`/chatroom/${chatRoom.chatRoom.id}`} className={classes.link}>
-                      <div className={classes.root}>
-                        <ListItem alignItems="flex-start" style={{padding: 0 }}>
-                          <ListItemAvatar>
-                            <Avatar
-                              alt="avatar"
-                              src={chatRoom.otherUser?.image.url}
-                            />
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={chatRoom.otherUser?.name}
-                            secondary={
-                              <div style={{ marginTop: "0.5rem" }}>
-                                <Typography
-                                  component="span"
-                                  variant="body2"
-                                  color="textSecondary"
-                                >
-                                  {chatRoom.lastMessage === null ? "まだメッセージはありません。" : chatRoom.lastMessage.content.length > 30 ? chatRoom.lastMessage.content.substr(0, 30) + "..." : chatRoom.lastMessage.content}
-                                </Typography>
-                              </div>
-                            }
-                          />
-                        </ListItem>
-                      </div>
-                    </Link>
-                    <Divider component="li" />
-                  </List>
-                </Grid>
-              )
-            })
-          ) : (
-            <Typography
-              component="p"
-              variant="body2"
-              color="textSecondary"
-            >
-              メッセージはありません
-            </Typography>
-          )
-        ) : (
-          <></>
-        )
-      }
-    </>
-  )
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
 }
 
-export default ChatRooms
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    '& .MuiDrawer-paper': {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      boxSizing: 'border-box',
+      ...(!open && {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }),
+);
+
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
+
+export default function Dashboard() {
+
+  const classes = useStyles()
+
+  const [open, setOpen] = React.useState(true);
+  const { currentUser } = useContext(AuthContext)
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  return (
+    <ThemeProvider theme={defaultTheme} >
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar position="absolute" open={open}>
+          <Toolbar
+            sx={{
+              pr: '24px', // keep right padding when drawer closed
+            }}
+          >
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              sx={{
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              メッセージ
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        {/* サイドメニューバー */}
+        <Drawer variant="permanent" open={open}>
+          <Toolbar
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              px: [1],
+            }}
+          >
+            <IconButton onClick={toggleDrawer}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Toolbar>
+          <Divider />
+          <List component="nav">
+            <ChatRoomsLists/>
+            <Divider sx={{ my: 1 }} />
+            {/* {secondaryListItems} */}
+          </List>
+        </Drawer>
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: '100vh',
+            overflow: 'auto',
+          }}
+        >
+          <Toolbar />
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+              {/* Chart */}
+              <Grid item xs={12} md={8} lg={9}>
+                
+              </Grid>
+              {/* Recent Orders */}
+              <Grid item xs={12}>
+                
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+      </Box>
+    </ThemeProvider>
+  );
+}

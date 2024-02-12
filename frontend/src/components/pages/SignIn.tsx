@@ -7,25 +7,29 @@ import { signIn } from "api/auth"
 // Interfaces
 import { SignInParams } from "interfaces/user"
 // Material UI
-import { Typography } from "@material-ui/core"
-import TextField from "@material-ui/core/TextField"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import CardHeader from "@material-ui/core/CardHeader"
-import Button from "@material-ui/core/Button"
-import Box from "@material-ui/core/Box"
+import { 
+  Typography, 
+  TextField, 
+  Card, 
+  CardContent, 
+  CardHeader, 
+  Button, 
+  Box, 
+  Container, 
+  Grid 
+} from "@material-ui/core"
 // Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
 // Component
 import AlertMessage from "components/utils/AlertMessage"
+import SuccessMessage from "components/utils/SuccessMessage"
+import Header from "components/layouts/Header"
+import Footer from "components/layouts/Footer"
 
 // Style
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    marginTop: theme.spacing(6)
-  },
   submitBtn: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
     flexGrow: 1,
     textTransform: "none"
   },
@@ -47,6 +51,34 @@ const useStyles = makeStyles((theme: Theme) => ({
       textDecoration: "none", 
     }
   },
+  snsIcon: {
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1)
+  },
+  switchText: {
+    textAlign: "center",
+    marginTop: theme.spacing(2),
+    fontSize: 10,
+    color: '#AFAFAF'
+  },
+  signinBtn: {
+    marginTop: theme.spacing(1),
+    flexGrow: 1,
+    textTransform: "none",
+    backgroundColor: "#186aff",
+    fontWeight: 600
+  },
+  wrapper: {
+    height: '100%',
+    minHeight: '100vh',
+    position: 'relative',
+    paddingBottom: 120,
+    boxSizing: "border-box",
+  },
+  container: {
+    marginTop: "3rem",
+    marginBottom: "6rem"
+  },
 }))
 
 // サインイン用ページ
@@ -59,7 +91,9 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+  const [successMessageOpen, setSuccessMessageOpen] = useState<boolean>(false)
 
+  // メールアドレスログイン処理
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
@@ -81,8 +115,9 @@ const SignIn: React.FC = () => {
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
 
-        navigate("/")
+        navigate("/home")
         console.log("ログインに成功しました！")
+        setSuccessMessageOpen(true)
       } else {
         setAlertMessageOpen(true)
       }
@@ -91,63 +126,82 @@ const SignIn: React.FC = () => {
       setAlertMessageOpen(true)
     }
   }
-
+  
   return (
     <>
-      <form noValidate autoComplete="off">
-        <Card className={classes.card}>
-          <CardHeader className={classes.header} title="ログイン" />
-          <CardContent>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="メールアドレス"
-              value={email}
-              margin="dense"
-              onChange={event => setEmail(event.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="パスワード"
-              type="password"
-              value={password}
-              margin="dense"
-              autoComplete="current-password"
-              onChange={event => setPassword(event.target.value)}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              disableElevation
-              fullWidth
-              color="primary"
-              disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
-              className={classes.submitBtn}
-              onClick={handleSubmit}
-            >
-              ログイン
-            </Button>
-            <Box textAlign="center" className={classes.box}>
-              <Typography variant="body2">
-                アカウント登録はまだですか? &nbsp;
-                <Link to="/signup" className={classes.link}>
-                  新規登録はこちらから
-                </Link>
-              </Typography>
-            </Box>
-          </CardContent>
-        </Card>
-      </form>
+      <div className={classes.wrapper}>
+      <header>
+        <Header/>
+      </header>
+      <Container className={classes.container}>
+        <Grid container alignItems="center" justify="center" spacing={4}>
+        <form noValidate autoComplete="off">
+          <Card className={classes.card}>
+            <CardHeader className={classes.header} title="ログイン" />
+            <CardContent>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="メールアドレス"
+                value={email}
+                margin="dense"
+                onChange={event => setEmail(event.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="パスワード"
+                type="password"
+                value={password}
+                margin="dense"
+                autoComplete="current-password"
+                onChange={event => setPassword(event.target.value)}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                disableElevation
+                fullWidth
+                color="primary"
+                disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
+                className={classes.signinBtn}
+                onClick={handleSubmit}
+              >
+                ログイン
+              </Button>
+
+              <Box textAlign="center" className={classes.box}>
+                <Typography variant="body2">
+                  アカウント登録はまだですか? &nbsp;
+                  <Link to="/signup" className={classes.link}>
+                    新規登録はこちらから
+                  </Link>
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </form>
+        </Grid>
+      </Container>
+      <footer>
+        <Footer/>
+      </footer>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
         message="メールアドレスかパスワードが違います"
       />
+      <SuccessMessage
+        open={successMessageOpen}
+        setOpen={setSuccessMessageOpen}
+        severity="success"
+        message="ログインに成功しました"
+      />
+      </div>
     </>
   )
 }

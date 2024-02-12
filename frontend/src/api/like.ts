@@ -15,8 +15,8 @@ export const getLikes = () => {
 }
 
 // プロジェクトに対してのいいねを作成
-export const createProjectLike= (data: Like, id: string) => {
-  return client.post(`project/${id}/likes`, data)
+export const createJobLike= (data: Like, id: string) => {
+  return client.post(`jobs/${id}/likes`, data)
 }
 
 

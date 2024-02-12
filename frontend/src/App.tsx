@@ -13,8 +13,8 @@ import Terms from "components/pages/Terms";
 import GetApplyUsers from "components/pages/GetApplyUsers"
 import SearchUsers from "components/pages/SearchUsers";
 import GetScoutsLikes from "components/pages/GetScoutsLikes";
-import ChatRooms from "components/pages/ChatRooms";
-import ChatRoom from "components/pages/ChatRoom"
+// import ChatRooms from "components/pages/ChatRooms";
+// import ChatRoom from "components/pages/ChatRoom"
 import UserSkills from "components/pages/UserSkills";
 import Index from "components/layouts/Index";
 import JobRegister from "components/features/jobs/JobRegister";
@@ -92,8 +92,8 @@ const App: React.FC = () => {
             <Route path="/privacy" element={<PrivacyPolicy/>}/>
             <Route path="/search-users" element={<SearchUsers/>}/>
             <Route path="/likes" element={<GetScoutsLikes/>}/>
-            <Route path="/chatrooms" element={<ChatRooms/>}/>
-            <Route path="/chatroom/:id" element={<ChatRoom/>} />
+            {/* <Route path="/chatrooms" element={<ChatRooms/>}/>
+            <Route path="/chatroom/:id" element={<ChatRoom/>} /> */}
             <Route path="/user/skills" element={<UserSkills/>}/>
             <Route path="/communities" element={<Community/>}/>
             <Route path="/user/settings" element={<UserSettings/>}/>

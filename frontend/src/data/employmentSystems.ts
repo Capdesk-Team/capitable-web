@@ -3,5 +3,5 @@ export const employmentSystems: string[] = [
     "正社員",
     "業務委託",
     "副業",
-    "インターン"
+    "学生インターン"
   ]

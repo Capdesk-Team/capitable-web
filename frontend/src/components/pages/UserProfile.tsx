@@ -26,10 +26,6 @@ import Button from "@material-ui/core/Button"
 import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@mui/material/Paper';
 
-// Components
-import SocialAccount from 'components/features/users/SocialAccount';
-import TechStack from 'components/features/users/TechStack';
-import Career from 'components/features/users/Career';
 
 // Material Icons
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
@@ -202,7 +198,6 @@ export default function Dashboard() {
                     ユーザーネーム
                   </Typography>
                   
-                  <SocialAccount />
                   <Divider/>
                     
                   <h3>現在のポジション</h3>
@@ -368,14 +363,6 @@ export default function Dashboard() {
                       保存する
                     </Button>
                   </Box>
-
-                  <Divider/>
-
-                  <TechStack/>
-
-                  <Divider/>
-
-                  <Career/>
 
                   <Divider/>
                     

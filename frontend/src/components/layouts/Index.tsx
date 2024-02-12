@@ -189,6 +189,14 @@ const Index: React.FC = () => {
           </div>
         </div>
 
+        {/* 導入企業 */}
+        <h2 className={classes.secondHeading}>導入企業</h2>
+        <Grid container alignItems="center" justify="center" spacing={4}>
+          <Grid item >
+            <img src="/kenzo_logo.png" width="80" height="80" alt="ホームアイコン" className={classes.snsIcon} />
+          </Grid>
+        </Grid>
+
         {/* 利用方法 */}
         <h2 className={classes.secondHeading}>利用方法</h2>
         <Grid container alignItems="center" justify="center" spacing={4}>

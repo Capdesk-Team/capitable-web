@@ -1,10 +1,10 @@
 // 応募してきたユーザー一覧
 export interface ApplyUsers {
-  id: string
-  userId: string
-  projectId: string
+  id: number
+  userId: number
+  jobId: number
   user: {
-    id: string
+    id: number
     name: string
     techSkill: string
     portfolioUrl: string
@@ -16,14 +16,14 @@ export interface ApplyUsers {
 
 //応募してきたユーザーを個別で表示
 export interface ShowApplyUser {
-  id: string 
-  userId: string
-  projectId: string
+  id: number 
+  userId: number
+  jobId: number
 }
 
 // プロジェクトへの応募
 export interface Apply {
-  id?: string
-  userId: string | undefined
-  projectId: string
+  id?: number
+  userId: number | undefined
+  jobId: number
 }

@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { AuthContext } from "App"
+import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,49 +11,10 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Avatar from "@material-ui/core/Avatar"
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import FormControl from "@material-ui/core/FormControl"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-
 // import { secondaryListItems } from './ListItems';
-import { ProfileListItems } from './ProfileListItems';
-import { Card, CardContent } from '@material-ui/core';
-import Button from "@material-ui/core/Button"
-import EditIcon from '@material-ui/icons/Edit';
-import Paper from '@mui/material/Paper';
-
-// Components
-import EditProfile from './EditProfile';
-import ChatRoomsLists from './ChatRoomLists';
-import SocialAccount from 'components/features/users/SocialAccount';
-// Material Icons
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-
-// Import Style
-import { makeStyles, Theme } from "@material-ui/core/styles"
-
-// Style
-const useStyles = makeStyles((theme: Theme) => ({
-  profileCard: {
-    margin: theme.spacing(4),
-    maxWidth: 720
-  },
-  profileContent: {
-    color: 'gray',
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(1),
-    fontWeight: 'bold',
-    border: 'solid 1px #dfdfdf',
-    borderRadius: 5,
-    minHeight: 64
-  },
-  
-}))
-
+import { dashboardListItems } from '../DashboardListItems';
 
 const drawerWidth: number = 240;
 
@@ -110,12 +70,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-
-  const classes = useStyles()
-
   const [open, setOpen] = React.useState(true);
-  const { currentUser } = useContext(AuthContext)
-
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -149,7 +104,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              メッセージ
+              ダッシュボード
             </Typography>
           </Toolbar>
         </AppBar>
@@ -169,7 +124,7 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ChatRoomsLists/>
+            {dashboardListItems}
             <Divider sx={{ my: 1 }} />
             {/* {secondaryListItems} */}
           </List>

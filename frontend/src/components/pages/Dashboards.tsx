@@ -3,9 +3,9 @@ import React, { useState, useContext, useEffect } from "react"
 import { Link } from 'react-router-dom';
 import { AuthContext } from "App"
 // API
-import { getProject } from 'api/project'
+import { getJobs } from 'api/job'
 // Interfaces
-import { getProjectList } from 'interfaces/project'
+import { getJobList } from 'interfaces/job'
 // Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
@@ -22,7 +22,6 @@ import Divider from '@material-ui/core/Divider'
 // Styles
 import { makeStyles, Theme } from "@material-ui/core/styles"
 // Components
-import { dashboardListItems } from './DashboardListItems';
 
 const drawerWidth = 240;
 
@@ -85,11 +84,9 @@ const Dashboard: React.FC = () => {
           <Toolbar />
           <Divider />
           <List>
-            {dashboardListItems}
           </List>
         </Drawer>
       </Box>
-            
             
       {/* 自分が作成したプロジェクト */}
       <Box
@@ -102,7 +99,7 @@ const Dashboard: React.FC = () => {
             <Typography
               variant="h6"
             >
-              作成した募集一覧
+              応募者確認ページ
             </Typography>
 
             <Grid container direction="column" spacing={2} >

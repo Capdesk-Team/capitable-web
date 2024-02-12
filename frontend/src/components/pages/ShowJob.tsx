@@ -2,7 +2,9 @@ import  React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
 import { AuthContext } from "App"
 // API
-import { getDetail } from 'api/project'
+import { showJob } from 'api/job'
+// Interfaces
+import { getJobsList } from 'interfaces/job'
 import { createApply } from 'api/apply';
 // Interfaces
 import { Apply } from 'interfaces/apply'
@@ -40,10 +42,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 600,
     fontSize: 14,
   },
-  button: {
+  applyBtn: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(2),
     width: '200px',
+    fontWeight: 600,
+    backgroundColor: '#186aff',
     marginLeft: '40%'
   },
   info: {
@@ -88,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const ProjectDetail:React.FC = () => {
+const ShowJob:React.FC = () => {
   const { currentUser } = useContext(AuthContext)
   const classes = useStyles()
   const [open, setOpen] = React.useState(false);
@@ -98,6 +102,33 @@ const ProjectDetail:React.FC = () => {
   const handleModalOpen = () => setModalOpen(true);
   const handleClose = () => setOpen(false);
   const handleModalClose = () => setModalOpen(false);
+
+  const [jobLists, setJobLists ] = useState<getJobsList[]>([]);
+
+  const { id } = useParams<{ id: string | undefined }>(); 
+  // id が undefined の場合は NaN を返す
+  const jobId = id ? parseInt(id) : NaN;
+
+  useEffect(() => {
+    // isNaN() 関数を使用してjobId が NaN でないことを確認し、適切に処理する
+    if (!isNaN(jobId)) {
+      handleShowJob(jobId);
+    } else {
+      console.error('組織IDが無効です');
+    }
+  }, [jobId]);
+
+
+  const handleShowJob = async (id: number) => {
+    try {
+      const res = await showJob(id);
+      console.log(res.data)
+      setJobLists(res.data)
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
 
   // プロジェクト詳細データ型
   const [data, setData] = useState({
@@ -138,7 +169,7 @@ const ProjectDetail:React.FC = () => {
     try {
       // queryが存在する場合、プロジェクトデータをセッティングする
       if (query) {
-        const res = await getDetail(query);
+        const res = await showJob(query);
         console.log(res.data);
         setData(res.data);
       } else {
@@ -150,13 +181,13 @@ const ProjectDetail:React.FC = () => {
   }
 
   // プロジェクト応募機能
-  const handleClick = async (projectId: string) => {
+  const handleClick = async (jobId: string) => {
     const data: Apply = {
       userId: currentUser?.id,
-      projectId: projectId
+      jobId: jobId
     }
     try {
-      const res = await createApply(data, projectId)
+      const res = await createApply(data, jobId)
       if (res?.status === 200) {
         setApply([res.data.apply, ...apply])
         setAlertMessageOpen(true)
@@ -327,8 +358,8 @@ const ProjectDetail:React.FC = () => {
           color="primary"
           disableElevation
           size="large"
-          className={classes.button}
           onClick={handleOpen}
+          className={classes.applyBtn}
         >
           応募する
         </Button>
@@ -399,4 +430,4 @@ const ProjectDetail:React.FC = () => {
   );
 }
 
-export default ProjectDetail
+export default ShowJob;

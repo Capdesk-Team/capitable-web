@@ -28,7 +28,6 @@ import Paper from '@mui/material/Paper';
 
 // Components
 import EditProfile from './EditProfile';
-import ChatRoomsLists from './ChatRoomLists';
 import SocialAccount from 'components/features/users/SocialAccount';
 // Material Icons
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
@@ -50,7 +49,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'bold',
     border: 'solid 1px #dfdfdf',
     borderRadius: 5,
-    minHeight: 64
   },
   
 }))
@@ -149,7 +147,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              メッセージ
+              ユーザー設定
             </Typography>
           </Toolbar>
         </AppBar>
@@ -169,7 +167,7 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ChatRoomsLists/>
+            {ProfileListItems}
             <Divider sx={{ my: 1 }} />
             {/* {secondaryListItems} */}
           </List>
@@ -191,7 +189,77 @@ export default function Dashboard() {
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
-                
+                <Card className={classes.profileCard}>
+                  <CardContent>
+                    
+                    <h3>ユーザー設定</h3>
+                    <Divider/>
+
+                    <Box display="flex" flexDirection="row" alignItems="center">
+                      <h3>お名前</h3>
+                      <Box flexGrow={1} />
+                      <Box>
+                        <Button variant="outlined" startIcon={<EditIcon />}>
+                          編集
+                        </Button>
+                      </Box>
+                    </Box>
+
+                    <Box className={classes.profileContent}>
+                      {
+                      currentUser?.portfolioUrl ? (
+                        currentUser.portfolioUrl 
+                      ) : (
+                        'ユーザー太郎'
+                      )}
+                    </Box>
+
+                    <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        disableElevation
+                        // className={classes}
+                      >
+                        保存する
+                      </Button>
+                    </Box>
+
+                    <Divider/>
+                    
+                    <h3>スカウト設定</h3>
+                    <Grid container spacing={3}>
+                      <Grid item xs={12}>
+                        <Box sx={{ minWidth: 240 }}>
+                          <FormControl fullWidth>
+                              <Select
+                                id="demo-simple-select"
+                              >
+                                <MenuItem value={10}>スカウトを受け取る</MenuItem>
+                                <MenuItem value={20}>スカウトを受け取らない</MenuItem>
+                                
+                              </Select>
+                          </FormControl>
+                        </Box>
+                      </Grid>
+                    </Grid>
+
+                    <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        disableElevation
+                        // className={classes}
+                      >
+                        保存する
+                      </Button>
+                    </Box>
+
+                    <Divider/>
+
+          
+                  </CardContent>
+                </Card>
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>

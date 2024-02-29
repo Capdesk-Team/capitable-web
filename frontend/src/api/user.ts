@@ -1,5 +1,4 @@
 import client from "api/client"
-import { UpdateFormData } from "interfaces/user"
 import Cookies from "js-cookie"
 
 // ユーザー一覧を取得
@@ -14,13 +13,13 @@ export const getUsers = () => {
 }
 
 // id指定でユーザー情報を個別に取得
-export const getUser = (id: number | undefined) => {
+export const getUser = (id: string) => {
   return client.get(`users/${id}`)
 }
 
 // ユーザー情報を更新
-export const updateUser = (id: number | undefined, data: UpdateFormData) => {
-  return client.put(`users/${id}`, data)
+export const updateUser = (uuid: string, data: any) => {
+  return client.put(`users/${uuid}`, data)
 }
 
 //ユーザーが作成したプロジェクトを作成

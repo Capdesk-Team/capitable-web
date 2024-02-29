@@ -9,8 +9,20 @@ import {
 // API
 import { showOrganization } from 'api/organization'
 import { getOrganizationsList } from 'interfaces/organization'
+// Styles
+import { makeStyles } from "@material-ui/core/styles"
+
+const useStyles = makeStyles(() => ({
+  image: {
+    border: 'solid 1px #dfdfdf',
+    borderRadius: 4
+  },
+}))
 
 const MainFeaturedPost: React.FC = () => {
+
+  // styleを定義
+  const classes = useStyles()
 
   const { id } = useParams<{ id: string | undefined }>(); 
 
@@ -56,6 +68,7 @@ const MainFeaturedPost: React.FC = () => {
                       <img
                         src={`http://localhost:3001/${organization.image.url}`}
                         alt="企業イメージ"
+                        className={classes.image}
                         width="92"
                         height="92"
                       />

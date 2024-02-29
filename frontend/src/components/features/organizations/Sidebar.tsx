@@ -9,12 +9,13 @@ import {
 // API
 import { showOrganization } from 'api/organization'
 import { getOrganizationsList } from 'interfaces/organization'
+// 都道府県のマスターデータ
 import { prefectures } from "data/prefectures"
 
-export default function Sidebar() {
+const Sidebar = () => {
 
   const organizationPrefecture = (index: number): string => {
-    // ラウンドの整数を取得し、文字列に変換して返す
+    // 都道府県の整数を取得し、文字列に変換して返す
     if (getOrganization[index]) {
       return prefectures[(getOrganization[index].prefecture) - 1].toString();
     } else {
@@ -37,6 +38,7 @@ export default function Sidebar() {
     }
   }, [orgId]);
 
+  // 法人詳細情報を取得
   const handleShowOrganization = async (id: number) => {
     try {
       const res = await showOrganization(id);
@@ -50,7 +52,6 @@ export default function Sidebar() {
   return (
     <>
       <Grid item xs={12} md={4}>
-
         <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
           会社情報
         </Typography>
@@ -71,7 +72,7 @@ export default function Sidebar() {
               住所： {organizationPrefecture(index)} {organization.addressCity}  {organization.addressStreet} {organization.addressBuilding}
             </Typography>
             <Typography>
-              郵便番号： {organization.zipCode}
+              設立年度： {organization.zipCode}
             </Typography>
           </Grid>
         ))}
@@ -79,3 +80,5 @@ export default function Sidebar() {
     </>
   );
 }
+
+export default Sidebar;

@@ -9,16 +9,17 @@ import CardMedia from '@mui/material/CardMedia';
 import { showOrganization } from 'api/organization'
 import { getOrganizationsList } from 'interfaces/organization'
 
-// Styles
+// Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
+// Styleを定義
 const useStyles = makeStyles((theme: Theme) => ({
   subImage: {
     margin: theme.spacing(4)
   }
 }))
 
-export default function FeaturedPost() {
+const FeaturedPost = () => {
 
   const classes = useStyles()
 
@@ -26,17 +27,18 @@ export default function FeaturedPost() {
   const [organizationList, setOrganizationList] = useState<getOrganizationsList[]>([]);
 
   // id が undefined の場合は NaN を返す
-  const jobId = id ? parseInt(id) : NaN;
+  const orgId = id ? parseInt(id) : NaN;
 
   useEffect(() => {
     // isNaN() 関数を使用して orgId が NaN でないことを確認し、適切に処理する
-    if (!isNaN(jobId)) {
-        handleShowOrganization(jobId);
+    if (!isNaN(orgId)) {
+        handleShowOrganization(orgId);
     } else {
       console.error('組織IDが無効です');
     }
-  }, [jobId]);
+  }, [orgId]);
 
+  // 法人詳細情報を取得
   const handleShowOrganization = async (id: number) => {
     try {
       const res = await showOrganization(id);
@@ -64,3 +66,5 @@ export default function FeaturedPost() {
     </>
   );
 }
+
+export default FeaturedPost;

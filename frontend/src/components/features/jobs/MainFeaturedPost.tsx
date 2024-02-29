@@ -13,14 +13,12 @@ import { JobOrganization } from 'interfaces/job'
 
 const MainFeaturedPost:React.FC = () => {
 
-
   const { id } = useParams<{ id: string | undefined }>(); 
 
   const [getJobOrganization, setGetJobOrganization] = useState<JobOrganization[]>([]);
 
   // id が undefined の場合は NaN を返す
   const jobId = id ? parseInt(id) : NaN;
-
 
   useEffect(() => {
     // isNaN() 関数を使用して orgId が NaN でないことを確認し、適切に処理する
@@ -41,7 +39,6 @@ const MainFeaturedPost:React.FC = () => {
     }
   }  
 
-
   useEffect(() => {
     // isNaN() 関数を使用して orgId が NaN でないことを確認し、適切に処理する
     if (!isNaN(jobId)) {
@@ -51,7 +48,7 @@ const MainFeaturedPost:React.FC = () => {
     }
   }, [jobId]);
 
-
+  // 求人詳細を取得
   const handleShowJob = async (id: number) => {
     try {
       const res = await showJob(id);

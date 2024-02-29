@@ -10,6 +10,9 @@ import {
 import { createJob } from "api/job";
 import { AuthContext } from "App"
 
+// 雇用形態のマスターデータ
+import { employmentSystems } from 'data/employmentSystems';
+
 function JobFormConfirm(props: any) {
 
   const { currentUser } = useContext(AuthContext)
@@ -31,7 +34,6 @@ function JobFormConfirm(props: any) {
         requiredApply: props.formValue.RecruitPersonForm.requiredApply,
         welcomeApply: props.formValue.RecruitPersonForm.welcomeApply,
         seekPerson: props.formValue.RecruitPersonForm.seekPerson,
-        notSolved: props.formValue.RecruitPersonForm.notSolved,
         workEnv: props.formValue.EmploymentForm.workEnv,
         process: props.formValue.EmploymentForm.process,
         salarySystem: props.formValue.EmploymentForm.salarySystem,
@@ -58,9 +60,9 @@ function JobFormConfirm(props: any) {
       <Divider sx={{ my: 1 }} />
       <Typography>募集タイトル：{props.formValue.JobPositionForm.title}</Typography>
       <Divider sx={{ my: 1 }} />
-      <Typography>募集ポジション{props.formValue.JobPositionForm.position}</Typography>
+      <Typography>募集ポジション：{props.formValue.JobPositionForm.position}</Typography>
       <Divider sx={{ my: 1 }} />
-      <Typography>雇用形態：{props.formValue.JobPositionForm.employmentSystem}</Typography>
+      <Typography>雇用形態：{employmentSystems[props.formValue.JobPositionForm.employmentSystem]}</Typography>
       <Divider sx={{ my: 1 }} />
       <Typography>業務内容：{props.formValue.JobContentForm.content}</Typography>
       <Divider sx={{ my: 1 }} />
@@ -71,8 +73,6 @@ function JobFormConfirm(props: any) {
       <Typography>歓迎条件：{props.formValue.RecruitPersonForm.welcomeApply}</Typography>
       <Divider sx={{ my: 1 }} />
       <Typography>求める人物像：{props.formValue.RecruitPersonForm.seekPerson}</Typography>
-      <Divider sx={{ my: 1 }} />
-      <Typography>まだ解決できていないこと：{props.formValue.RecruitPersonForm.notSolved}</Typography>
       <Divider sx={{ my: 1 }} />
       <Typography>働く環境：{props.formValue.EmploymentForm.workEnv}</Typography>
       <Divider sx={{ my: 1 }} />

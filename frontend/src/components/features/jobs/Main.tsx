@@ -12,6 +12,7 @@ import { showJob } from 'api/job'
 // Styles
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
+// Styleを定義
 const useStyles = makeStyles((theme: Theme) => ({
   organizationCard: {
     marginBottom: "0.5rem"
@@ -39,7 +40,7 @@ const Main:React.FC = () => {
     }
   }, [jobId]);
 
-
+  // 求人詳細を取得
   const handleShowJob = async (id: number) => {
     try {
       const res = await showJob(id);
@@ -59,7 +60,9 @@ const Main:React.FC = () => {
     welcomeApply: '',
     seekPerson: '',
     developmentEnv: '',
-    notSolved: '',
+    workEnv: '',
+    process: '',
+    salarySystem: '',
     createdAt: Date
   });
 
@@ -111,19 +114,28 @@ const Main:React.FC = () => {
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
-          開発環境
+          働く環境
         </Typography>
-        <Box>{data.developmentEnv}</Box>
+        <Box>{data.workEnv}</Box>
         <Divider />
       </Box>
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
-          私たちがまだ取り組めていないこと
+          選考プロセス
         </Typography>
-        <Box>{data.notSolved}</Box>
+        <Box>{data.process}</Box>
+        <Divider />
       </Box>
-
+      
+      <Box className={classes.jobContent}>
+        <Typography variant="h6" gutterBottom>
+          給与形態
+        </Typography>
+        <Box>{data.salarySystem}</Box>
+        <Divider />
+      </Box>
+      
       <Divider />
 
     </Grid>

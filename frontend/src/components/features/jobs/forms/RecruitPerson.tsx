@@ -18,15 +18,15 @@ export interface RecruitPersonType {
   notSolved: string;
 }
 
-function Application(props: any) {
+const Application = (props: any) => {
 
+  // default formを設定
   const { control, handleSubmit, setValue, formState:{errors}} =
     useForm<RecruitPersonType>({
       defaultValues: {
         requiredApply: "",
         welcomeApply: "",
         seekPerson: "",
-        notSolved: "",
       },
       mode: "all",
     });
@@ -37,6 +37,7 @@ function Application(props: any) {
     props.setFormValue({ ...props.formValue, RecruitPersonForm: data });
   };
 
+  // propsで値を設定
   useEffect(() => {
     if (props.formValue.RecruitPersonForm) {
       setValue("requiredApply", props.formValue.RecruitPersonForm.requiredApply, {
@@ -46,9 +47,6 @@ function Application(props: any) {
         shouldDirty: true,
       });
       setValue("seekPerson", props.formValue.RecruitPersonForm.seekPerson, {
-        shouldDirty: true,
-      });
-      setValue("notSolved", props.formValue.AddressForm.notSolved, {
         shouldDirty: true,
       });
     }
@@ -125,30 +123,6 @@ function Application(props: any) {
                 placeholder="こんな方と働きたい"
                 error={errors.seekPerson ? true : false}
                 helperText={errors.seekPerson?.message}
-                fullWidth
-                multiline
-                rows={6}
-                margin="normal"
-              ></TextField>
-            )}
-          />
-        </Box>
-
-        <Typography gutterBottom >
-          私たちがまだ取り組めていないこと
-        </Typography>
-
-        <Box mb={3}>
-          <Controller
-            name="notSolved"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                type="text"
-                placeholder="まだ取り組めていないこと"
-                error={errors.notSolved ? true : false}
-                helperText={errors.notSolved?.message}
                 fullWidth
                 multiline
                 rows={6}

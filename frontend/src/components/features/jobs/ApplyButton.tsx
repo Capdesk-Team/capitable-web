@@ -95,6 +95,7 @@ const ApplyButton:React.FC = () => {
       if (res?.status === 200) {
         setApply([res.data.apply, ...apply])
         setAlertMessageOpen(true)
+        handleModalClose()
         console.log(res?.data)
       } else {
         console.log("プロジェクトへの応募に失敗しました")

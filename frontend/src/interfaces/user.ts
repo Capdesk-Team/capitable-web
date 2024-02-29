@@ -11,7 +11,8 @@ export interface SignInParams {
 }
 
 export interface UpdateParams {
-  id: number | undefined | null
+  id: number | undefined
+  uuid: string | undefined
   name: string
   image: string
   techSkill: string
@@ -20,12 +21,8 @@ export interface UpdateParams {
   portfolioUrl: string
   career: string
   nextCareer: string
+  position: number
 }
-
-export interface UpdateFormData extends FormData {
-  append(name: keyof UpdateParams, value: String | Blob, fileName?: string): any
-}
-
   
 export interface User {
   id: number

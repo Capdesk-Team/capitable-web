@@ -1,5 +1,6 @@
 export interface getOrganizationsList {
   id: number
+  uuid: string
   name: string
   presidentName: string
   email: string
@@ -24,7 +25,10 @@ export interface getOrganizationsList {
     url: string
   },
   establishmentYear: Date
-  members: number
+  members: number,
+  users: {
+    id: number;
+  }[];
 } 
 
 export interface CreateOrganization {

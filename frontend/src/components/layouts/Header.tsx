@@ -1,13 +1,19 @@
-import React, { useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie"
-
+// API
+import { getOrganizations } from "api/organization";
 import { signOut } from "api/auth"
+// Interfaces
+import { getOrganizationsList } from "interfaces/organization";
 // Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
 // Material UI
-import Toolbar from "@material-ui/core/Toolbar"
+import {
+  Toolbar,
+  Grid
+} from "@material-ui/core"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import Avatar from "@material-ui/core/Avatar"
@@ -95,6 +101,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Header: React.FC = () => {
   const { loading, isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext)
+
+  const [organizations, setOrganizations] = useState<getOrganizationsList[]>([]);
+
   const classes = useStyles()
   const navigate = useNavigate()
 
@@ -107,7 +116,7 @@ const Header: React.FC = () => {
     setAnchorEl(null);
   };
   
-
+  // ログアウトの処理
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const res = await signOut()
@@ -130,9 +139,29 @@ const Header: React.FC = () => {
     }
   }
 
+  // ログインユーザーが所属している法人を取得
+  useEffect(() => {
+    if (isSignedIn && currentUser) {
+      handleGetUserOrganizations(); // ログインユーザーが所属している組織のみを取得
+    }
+  }, [isSignedIn, currentUser]); 
+
+  const handleGetUserOrganizations = async () => {
+    try {
+      const res = await getOrganizations();
+      setOrganizations(res.data); // 取得した組織をstateに設定
+    } catch(e) {
+      console.error("ログインユーザーの組織取得に失敗しました", e);
+    }
+  }
+
+
   const AuthButtons = () => {
     // 認証完了後はサインアウト用のボタンを表示
     // 未認証時は認証用のボタンを表示
+
+    console.log("organizations:", organizations);
+    console.log("currentUser:", currentUser);
     if (!loading) {
       if (isSignedIn) {
         return (
@@ -146,14 +175,23 @@ const Header: React.FC = () => {
               >
                 法人登録をおこなう
               </Button>
-              <Button
-                color="inherit"
-                className={classes.linkBtn}
-                component={Link}
-                to="/dashboards"
-              >
-                法人ダッシュボードへ
-              </Button>
+
+              {organizations.map((organization: getOrganizationsList, index) => (
+                <Grid item key={index}>
+                  {/* organization.users が undefined でない場合のみ処理を実行 */}
+                  {organization.users !== undefined &&
+                    organization.users.find(user => user.id === currentUser?.id) && ( // user.idがcurrentUserのidと一致する場合
+                      <Button
+                        component={Link}
+                        to={`/organizations/${organization.id}/dashboard`}
+                        className={classes.linkBtn}
+                      >
+                        法人ダッシュボードへ
+                      </Button>
+                    )}
+                </Grid>
+              ))}
+
               <IconButton
                 component={Link}
                 to="/chatrooms"  

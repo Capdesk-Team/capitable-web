@@ -7,12 +7,23 @@ import {
   Box
 }
 from "@material-ui/core"
+// Import Style
+import { makeStyles, Theme } from "@material-ui/core/styles"
 // API
 import { showJob } from 'api/job'
 import { JobOrganization } from 'interfaces/job'
+// Styles
+const useStyles = makeStyles((theme: Theme) => ({
+  orgImg: {
+    marginTop: theme.spacing(1),
+    border: 'solid 1px #dfdfdf',
+    borderRadius: 4
+  },
+}))
+
 
 const MainFeaturedPost:React.FC = () => {
-
+  const classes = useStyles()
   const { id } = useParams<{ id: string | undefined }>(); 
 
   const [getJobOrganization, setGetJobOrganization] = useState<JobOrganization[]>([]);
@@ -80,11 +91,15 @@ const MainFeaturedPost:React.FC = () => {
               {getJobOrganization.map((job: JobOrganization, index) => (
                 <Grid key={index} item>
                   <Grid item>
+                    <span>{job.organization.name}の求人</span>
+                  </Grid>
+                  <Grid item>
                     <img
                       src={`http://localhost:3001/${job.organization.image.url}`}
                       alt="企業イメージ"
                       width="92"
                       height="92"
+                      className={classes.orgImg}
                     />
                   </Grid>
                 </Grid>

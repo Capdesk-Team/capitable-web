@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   jobContent: {
     margin: theme.spacing(2)
+  },
+  contentData: {
+    whiteSpace: 'pre-line'
   }
 }))
 
@@ -77,63 +80,86 @@ const Main:React.FC = () => {
         },
       }}
     >
-      
+      {/* 募集要項 */}
       <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           業務内容
         </Typography>
-        {data.content}
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.content}
+        </Box>
       </Box>
+      <Divider />
+
+      <Box className={classes.jobContent}>
+        <Typography variant="h6" gutterBottom>
+          開発環境
+        </Typography>
+        <Box className={classes.contentData}>
+          {data.developmentEnv}
+        </Box>
+      </Box>
+      <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           必須条件
         </Typography>
-        <Box>{data.requiredApply}</Box>
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.requiredApply}
+        </Box>
       </Box>
+      <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           歓迎条件
         </Typography>
-        <Box>{data.welcomeApply}</Box>
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.welcomeApply}
+        </Box>
       </Box>
+      <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           こんな方と働きたい
         </Typography>
-        <Box>{data.seekPerson}</Box>
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.seekPerson}
+        </Box>
       </Box>
+      <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           働く環境
         </Typography>
-        <Box>{data.workEnv}</Box>
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.workEnv}
+        </Box>
       </Box>
+      <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           選考プロセス
         </Typography>
-        <Box>{data.process}</Box>
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.process}
+        </Box>
       </Box>
+      <Divider />
       
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           給与形態
         </Typography>
-        <Box>{data.salarySystem}</Box>
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.salarySystem}
+        </Box>
       </Box>
       
       <Divider />

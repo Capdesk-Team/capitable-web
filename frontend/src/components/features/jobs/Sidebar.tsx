@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
 import { useParams } from 'react-router';
+// Material UI
 import Typography from '@mui/material/Typography';
 import {
   Grid,
-  Divider
+  Divider,
+  Link,
 } from '@material-ui/core'
-
 // API
 import { showJob } from 'api/job'
 import { JobOrganization } from 'interfaces/job'
@@ -54,14 +55,14 @@ const Sidebar: React.FC = () => {
       {getJobOrganization.map((job: JobOrganization, index) => (
         <Grid key={index} item>
           <Typography>
-            URL：{job.organization?.serviceLink}
-          </Typography>
-          <Typography>
             メンバー数：{job.organization?.members}
           </Typography>
           <Typography>
             代表者名：{job.organization?.presidentName}
           </Typography>
+          <Link href={job.organization?.serviceLink} underline="hover" target="_blank">
+            {job.organization?.serviceLink}
+          </Link>
         </Grid>
       ))}
     </Grid>

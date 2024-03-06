@@ -76,7 +76,7 @@ const ApplyButton:React.FC = () => {
         console.log(res.data);
         setData(res.data);
       } else {
-        console.error('projectデータが取得出来ませんでした');
+        console.error('求人データが取得できませんでした。');
       }
     } catch(e) {
       console.log(e);
@@ -94,8 +94,8 @@ const ApplyButton:React.FC = () => {
       const res = await createApply(data, jobId)
       if (res?.status === 200) {
         setApply([res.data.apply, ...apply])
+        handleClose()
         setAlertMessageOpen(true)
-        handleModalClose()
         console.log(res?.data)
       } else {
         console.log("プロジェクトへの応募に失敗しました")

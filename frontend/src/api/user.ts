@@ -13,8 +13,8 @@ export const getUsers = () => {
 }
 
 // id指定でユーザー情報を個別に取得
-export const getUser = (id: string) => {
-  return client.get(`users/${id}`)
+export const getUser = (uuid: string) => {
+  return client.get(`users/${uuid}`)
 }
 
 // ユーザー情報を更新

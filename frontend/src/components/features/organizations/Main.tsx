@@ -12,12 +12,16 @@ import { showOrganization } from 'api/organization'
 // Styles
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
+// スタイルを定義
 const useStyles = makeStyles((theme: Theme) => ({
   organizationCard: {
     marginBottom: "0.5rem"
   },
   organizationContent: {
     margin: theme.spacing(2)
+  },
+  contentData: {
+    whiteSpace: 'pre-line'
   }
 }))
 
@@ -76,15 +80,19 @@ const Main:React.FC = () => {
         <Typography variant="h6" gutterBottom>
           事業内容
         </Typography>
-        {data.projects}
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.projects}
+        </Box>
       </Box>
+      <Divider />
 
       <Box className={classes.organizationContent}>
         <Typography variant="h6" gutterBottom>
           解決したい課題
         </Typography>
-        <Box>{data.solveProblems}</Box>
+        <Box className={classes.contentData}>
+          {data.solveProblems}
+        </Box>
       </Box>
 
       <Divider />

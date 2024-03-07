@@ -115,7 +115,7 @@ const ApplyButton:React.FC = () => {
         className={classes.applyBtn}
         onClick={handleOpen}
       >
-        応募する
+        話をしたい
       </Button>
 
       <Button onClick={handleModalOpen} className={classes.info}>
@@ -128,7 +128,7 @@ const ApplyButton:React.FC = () => {
         <DialogTitle>応募の流れ</DialogTitle>
         <DialogContent>
           <Typography>
-            1. 気になる募集に対して「応募する」をクリックしましょう
+            1. 気になる募集に対して「話をしたい」をクリックしましょう
           </Typography>
           <Typography>
             2. 応募が完了したら、採用担当者とのチャットルームが作成されます
@@ -168,7 +168,7 @@ const ApplyButton:React.FC = () => {
             variant="contained" 
             onClick={() => handleClick(data.id)}
           >
-            応募する
+            話をしたい
           </Button>
         </DialogActions>
       </Dialog>

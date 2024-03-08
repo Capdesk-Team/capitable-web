@@ -28,9 +28,6 @@ import { AuthContext } from "App"
 // Material Icons
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-// Components
-import CustomizedMenus from '../pages/Community'
-
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   logo: {
@@ -166,7 +163,6 @@ const Header: React.FC = () => {
       if (isSignedIn) {
         return (
             <>
-              <CustomizedMenus/>
               <Button
                 color="inherit"
                 className={classes.linkBtn}
@@ -242,7 +238,6 @@ const Header: React.FC = () => {
       } else {
         return (
           <>
-            <CustomizedMenus/>
             <Button
               component={Link}
               to="https://forms.gle/H65NorqmpAKfR8y17"

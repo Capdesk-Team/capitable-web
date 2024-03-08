@@ -55,7 +55,7 @@ export default function FeaturedPost() {
             <CardMedia
               component="img"
               sx={{ width: 320, display: { xs: 'none', sm: 'block' } }}
-              src={`http://localhost:3001/${job.organization.cultureImage.url}`}
+              src={`https://capitable-api-eb39432eaef1.herokuapp.com/${job.organization.cultureImage.url}`}
               alt=""
             />
           </Card>

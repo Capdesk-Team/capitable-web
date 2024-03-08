@@ -6,7 +6,7 @@ const options = {
 }
 
 const client = applyCaseMiddleware(axios.create({
-  baseURL:  'http://localhost:3001/api/v1/'
+  baseURL:  'https://capitable-api-eb39432eaef1.herokuapp.com/api/v1/'
 }), options)
 
 export default client

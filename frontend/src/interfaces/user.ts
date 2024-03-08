@@ -11,8 +11,8 @@ export interface SignInParams {
 }
 
 export interface UpdateParams {
-  id: number | undefined
-  uuid: string | undefined
+  id: number
+  uuid: String
   name: string
   image: string
   techSkill: string

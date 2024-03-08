@@ -28,7 +28,15 @@ export interface getOrganizationsList {
   members: number,
   users: {
     id: number;
+    image: string
+    name: string;
+    role: number;
   }[];
+  jobs: {
+    title: string
+  }[],
+  title:string
+  
 } 
 
 export interface CreateOrganization {

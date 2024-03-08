@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect } from "react"
+import { useParams } from 'react-router';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -13,8 +14,12 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-// import { secondaryListItems } from './ListItems';
 import { dashboardListItems } from '../DashboardListItems';
+
+// API
+import { showOrganization } from 'api/organization'
+// Interfaces
+import { getOrganizationsList } from 'interfaces/organization'
 
 const drawerWidth: number = 240;
 
@@ -69,8 +74,33 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+const Dashboard: React.FC = ()  => {
   const [open, setOpen] = React.useState(true);
+
+  const { id } = useParams<{ id: string | undefined }>();
+  const [organizationList, setOrganizationList] = useState<getOrganizationsList[]>([]);
+
+  // id が undefined の場合は NaN を返す
+  const orgId = id ? parseInt(id) : NaN;
+
+  useEffect(() => {
+    // isNaN() 関数を使用して orgId が NaN でないことを確認し、適切に処理する
+    if (!isNaN(orgId)) {
+        handleShowOrganization(orgId);
+    } else {
+      console.error('組織IDが無効です');
+    }
+  }, [orgId]);
+
+  const handleShowOrganization = async (id: number) => {
+    try {
+      const res = await showOrganization(id);
+      console.log(res.data);
+      setOrganizationList([res.data]); // 配列に追加する
+    } catch(e) {
+      console.log(e);
+    }
+  }  
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -97,15 +127,19 @@ export default function Dashboard() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              ダッシュボード
-            </Typography>
+            {organizationList.map((organization: getOrganizationsList, index) => (
+              <Grid key={index} item>
+                <Typography
+                  component="h1"
+                  variant="h6"
+                  color="inherit"
+                  noWrap
+                  sx={{ flexGrow: 1 }}
+                >
+                  {organization.name}のダッシュボード
+                </Typography>
+              </Grid>
+            ))}
           </Toolbar>
         </AppBar>
         {/* サイドメニューバー */}
@@ -159,3 +193,5 @@ export default function Dashboard() {
     </ThemeProvider>
   );
 }
+
+export default Dashboard;

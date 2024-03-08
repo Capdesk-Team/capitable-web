@@ -4,11 +4,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
-import GroupIcon from '@material-ui/icons/Group';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import BusinessIcon from '@material-ui/icons/Business';
+import HelpIcon from '@material-ui/icons/Help';
+// import Component
+import InvitaionUser from 'components/features/organizations/InvitaionUser';
+import SidebarMenu from 'components/features/organizations/dashboards/SidebarMenu'
 
 export const dashboardListItems = (
   <>
@@ -17,12 +18,6 @@ export const dashboardListItems = (
         <HomeIcon />
       </ListItemIcon>
       <ListItemText primary="ホーム" />
-    </ListItemButton>
-    <ListItemButton component={Link} to="/dashboards">
-      <ListItemIcon>
-        <GroupIcon />
-      </ListItemIcon>
-      <ListItemText primary="メンバー一覧" />
     </ListItemButton>
     <ListItemButton component={Link} to="/chatrooms">
       <ListItemIcon>
@@ -36,17 +31,14 @@ export const dashboardListItems = (
       </ListItemIcon>
       <ListItemText primary="募集作成" />
     </ListItemButton>
-    <ListItemButton component={Link} to="">
+    {/* ユーザー招待 */}
+    <ListItemButton component={SidebarMenu} />
+    <ListItemButton component={InvitaionUser} />
+    <ListItemButton component={Link} to="/notion-page">
       <ListItemIcon>
-        <PersonAddIcon />
+        <HelpIcon />
       </ListItemIcon>
-      <ListItemText primary="メンバーを招待する" />
-    </ListItemButton>
-    <ListItemButton component={Link} to="">
-      <ListItemIcon>
-        <BusinessIcon />
-      </ListItemIcon>
-      <ListItemText primary="法人情報管理" />
+      <ListItemText primary="ヘルプページ" />
     </ListItemButton>
   </>
 );

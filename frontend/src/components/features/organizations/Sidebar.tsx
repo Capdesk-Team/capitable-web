@@ -71,9 +71,6 @@ const Sidebar = () => {
             <Typography>
               住所： {organizationPrefecture(index)} {organization.addressCity}  {organization.addressStreet} {organization.addressBuilding}
             </Typography>
-            <Typography>
-              設立年度： {organization.zipCode}
-            </Typography>
           </Grid>
         ))}
       </Grid>

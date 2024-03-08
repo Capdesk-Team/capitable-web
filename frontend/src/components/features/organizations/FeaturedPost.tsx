@@ -57,7 +57,7 @@ const FeaturedPost = () => {
             <CardMedia
               component="img"
               sx={{ width: 320, display: { xs: 'none', sm: 'block' } }}
-              src={`http://localhost:3001/${organization.cultureImage.url}`}
+              src={`https://capitable-api-eb39432eaef1.herokuapp.com/${organization.cultureImage.url}`}
               alt=""
             />
           </Card>

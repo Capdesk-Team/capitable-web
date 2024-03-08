@@ -1,5 +1,5 @@
 // エンジニアロールのマスターロール
-export const roles: string[] = [
+export const positions: string[] = [
     "フロントエンドエンジニア",
     "バックエンドエンジニア",
     "モバイルエンジニア",

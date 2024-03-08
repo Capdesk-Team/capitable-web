@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router';
 import { AuthContext } from "App"
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,17 +16,20 @@ import Grid from '@mui/material/Grid';
 import Avatar from "@material-ui/core/Avatar"
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import FormControl from "@material-ui/core/FormControl"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+
+// API
+import { getUser } from 'api/user'
+
+// Components
+import SnsProfile from 'components/features/users/profile/SnsProfile';
+import TechSkill from '../features/users/profile/TechSkill';
+import Portfolio from 'components/features/users/profile/Portfolio';
+import Career from 'components/features/users/profile/Career';
+import NextCareer from 'components/features/users/profile/NextCareer';
 
 // import { secondaryListItems } from './ListItems';
 import { ProfileListItems } from './ProfileListItems';
 import { Card, CardContent } from '@material-ui/core';
-import Button from "@material-ui/core/Button"
-import EditIcon from '@material-ui/icons/Edit';
-import Paper from '@mui/material/Paper';
-
 
 // Material Icons
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
@@ -51,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   
 }))
-
 
 const drawerWidth: number = 240;
 
@@ -102,20 +105,52 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     },
   }),
 );
-
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+const UserProfile: React.FC = () => {
+
+  const [user, setUser] = useState({
+    id: '',
+    uuid: '',
+    name: '',
+    portfolio: '',
+    nextCareerts: [] // 適切な初期値を設定してください
+  });
+  
 
   const classes = useStyles()
 
   const [open, setOpen] = React.useState(true);
   const { currentUser } = useContext(AuthContext)
 
+  // idを定義
+  const { id } = useParams<{ id: string | undefined }>();
+
+  useEffect(() => {
+    showUserProfile(id)
+  }, [id]);
+
+  // 求人詳細情報を取得
+  const showUserProfile = async (query: string | undefined) => {
+    try {
+      // queryが存在する場合、求人データをセッティングする
+      if (query) {
+        const res = await getUser(query);
+        console.log(res.data);
+        setUser(res.data);
+      } else {
+        console.error('ユーザー情報を取得できませんでした。');
+      }
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
 
   return (
     <ThemeProvider theme={defaultTheme} >
@@ -195,215 +230,36 @@ export default function Dashboard() {
                   <Typography
                     variant="h6"
                   >
-                    ユーザーネーム
+                    {currentUser?.name}
                   </Typography>
+
+                  {/* SNSプロフィール */}
+                  <Divider/>
+                    {currentUser && <SnsProfile user={currentUser} />}
+                  <Divider/>
+
+                  {/* 技術スタック */}
+                  <Divider/>
+                    {currentUser && <TechSkill user={currentUser} />}
+                  <Divider/>
+
+                  {/* ポートフォリオリンク */}
+                  <Divider/>
+                    {currentUser && <Portfolio user={currentUser} />}
+                  <Divider/>
+
+                  {/* これまで取り組んできたプロジェクト */}
+                  <Divider/>
+                    {currentUser && <Career user={currentUser} />}
+                  <Divider/>
                   
+                  {/* これからやっていきたいこと */}
+                  <Divider/>
+                    {currentUser && <NextCareer user={currentUser} />}
                   <Divider/>
                     
-                  <h3>現在のポジション</h3>
-                  <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                      <Box sx={{ minWidth: 240 }}>
-                        <FormControl fullWidth>
-                            <Select
-                              id="demo-simple-select"
-                            >
-                              <MenuItem value={10}>テックリード</MenuItem>
-                              <MenuItem value={20}>バックエンドエンジニア</MenuItem>
-                              <MenuItem value={30}>プロダクトマネージャー</MenuItem>
-                              <MenuItem value={40}>フロントエンドエンジニア</MenuItem>
-                              <MenuItem value={50}>モバイルエンジニア</MenuItem>
-                              <MenuItem value={60}>VPoE</MenuItem>
-                              <MenuItem value={70}>QAエンジニア</MenuItem>
-                              <MenuItem value={80}>CTO</MenuItem>
-                              <MenuItem value={90}>DevOpsエンジニア</MenuItem>
-                              <MenuItem value={90}>SRE</MenuItem>
-
-                            </Select>
-                        </FormControl>
-                      </Box>
-                    </Grid>
-                  </Grid>
-
-                  <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      disableElevation
-                      // className={classes}
-                    >
-                      保存する
-                    </Button>
-                  </Box>
-
-                  <Divider/>
-
-                  <Box display="flex" flexDirection="row" alignItems="center">
-                    <h3>これまで経験してきた技術スタック</h3>
-                    <Box flexGrow={1} />
-                    <Box>
-                      <Button variant="outlined" startIcon={<EditIcon />}>
-                        編集
-                      </Button>
-                    </Box>
-                  </Box>
-
-                  <Box className={classes.profileContent}>
-                    {
-                    currentUser?.portfolioUrl ? (
-                      currentUser.portfolioUrl 
-                    ) : (
-                      'これまで経験してきた技術スタック'
-                    )}
-                  </Box>
-
-                  <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      disableElevation
-                      // className={classes}
-                    >
-                      保存する
-                    </Button>
-                  </Box>
-
-                  <Divider/>
-
-
-                  <Divider/>
-
-                  <Box display="flex" flexDirection="row" alignItems="center">
-                    <h3>ポートフォリオリンク</h3>
-                    <Box flexGrow={1} />
-                    <Box>
-                      <Button variant="outlined" startIcon={<EditIcon />}>
-                        編集
-                      </Button>
-                    </Box>
-                  </Box>
-
-                  <Box className={classes.profileContent}>
-                    {
-                    currentUser?.portfolioUrl ? (
-                      currentUser.portfolioUrl 
-                    ) : (
-                      'https://'
-                    )}
-                  </Box>
-                  
-                  <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      disableElevation
-                      // className={classes}
-                    >
-                      保存する
-                    </Button>
-                  </Box>
-
-                  <Divider/>
-
-                  <Box display="flex" flexDirection="row" alignItems="center">
-                    <h3>これまでの経歴</h3>
-                    <Box flexGrow={1} />
-                    <Box>
-                      <Button variant="outlined" startIcon={<EditIcon />}>
-                        編集
-                      </Button>
-                    </Box>
-                  </Box>
-                  <Box className={classes.profileContent}>
-                    {
-                    currentUser?.portfolioUrl ? (
-                      currentUser.portfolioUrl 
-                    ) : (
-                      'これまでの経歴を入力'
-                    )}
-                  </Box>
-                  <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      disableElevation
-                      // className={classes}
-                    >
-                      保存する
-                    </Button>
-                  </Box>
-
-                  <Divider/>
-
-                  <Box display="flex" flexDirection="row" alignItems="center">
-                    <h3>今後やっていきたいこと</h3>
-                    <Box flexGrow={1} />
-                    <Box>
-                      <Button variant="outlined" startIcon={<EditIcon />}>
-                        編集
-                      </Button>
-                    </Box>
-                  </Box>
-
-                  <Box className={classes.profileContent}>
-                    {
-                    currentUser?.portfolioUrl ? (
-                      currentUser.portfolioUrl 
-                    ) : (
-                      '今後やっていきたいことを入力'
-                    )}
-                  </Box>
-                  <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      disableElevation
-                      // className={classes}
-                    >
-                      保存する
-                    </Button>
-                  </Box>
-
-                  <Divider/>
-                    
-                    <h3>株式やSOをインセンティブにしたスカウトへの興味・関心</h3>
-                    
-                    <Grid container spacing={3}>
-                      <Grid item xs={12}>
-                        <Box sx={{ minWidth: 240 }}>
-                          <FormControl fullWidth>
-                              <Select
-                                id="demo-simple-select"
-                                
-                              >
-                                <MenuItem value={10}>積極的にSOや株式が付与される求人を探している</MenuItem>
-                                <MenuItem value={20}>SO付与が条件にあった場合、スカウト内容への関心度が上がる</MenuItem>
-                                <MenuItem value={30}>興味がある</MenuItem>
-                                <MenuItem value={40}>面談時に説明を受けたい</MenuItem>
-                                <MenuItem value={50}>興味がない</MenuItem>
-
-                              </Select>
-                          </FormControl>
-                        </Box>
-                      </Grid>
-                    </Grid>
-                    <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      disableElevation
-                      // className={classes}
-                    >
-                      保存する
-                    </Button>
-                  </Box>
-          
                   </CardContent>
                 </Card>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                
               </Grid>
             </Grid>
           </Container>
@@ -412,3 +268,5 @@ export default function Dashboard() {
     </ThemeProvider>
   );
 }
+
+export default UserProfile;

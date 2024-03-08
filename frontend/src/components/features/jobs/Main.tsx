@@ -12,12 +12,16 @@ import { showJob } from 'api/job'
 // Styles
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
+// Styleを定義
 const useStyles = makeStyles((theme: Theme) => ({
   organizationCard: {
     marginBottom: "0.5rem"
   },
   jobContent: {
     margin: theme.spacing(2)
+  },
+  contentData: {
+    whiteSpace: 'pre-line'
   }
 }))
 
@@ -39,7 +43,7 @@ const Main:React.FC = () => {
     }
   }, [jobId]);
 
-
+  // 求人詳細を取得
   const handleShowJob = async (id: number) => {
     try {
       const res = await showJob(id);
@@ -59,7 +63,9 @@ const Main:React.FC = () => {
     welcomeApply: '',
     seekPerson: '',
     developmentEnv: '',
-    notSolved: '',
+    workEnv: '',
+    process: '',
+    salarySystem: '',
     createdAt: Date
   });
 
@@ -74,56 +80,88 @@ const Main:React.FC = () => {
         },
       }}
     >
-      
+      {/* 募集要項 */}
       <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           業務内容
         </Typography>
-        {data.content}
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.content}
+        </Box>
       </Box>
-
-      <Box className={classes.jobContent}>
-        <Typography variant="h6" gutterBottom>
-          必須条件
-        </Typography>
-        <Box>{data.requiredApply}</Box>
-        <Divider />
-      </Box>
-
-      <Box className={classes.jobContent}>
-        <Typography variant="h6" gutterBottom>
-          歓迎条件
-        </Typography>
-        <Box>{data.welcomeApply}</Box>
-        <Divider />
-      </Box>
-
-      <Box className={classes.jobContent}>
-        <Typography variant="h6" gutterBottom>
-          こんな方と働きたい
-        </Typography>
-        <Box>{data.seekPerson}</Box>
-        <Divider />
-      </Box>
+      <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
           開発環境
         </Typography>
-        <Box>{data.developmentEnv}</Box>
-        <Divider />
+        <Box className={classes.contentData}>
+          {data.developmentEnv}
+        </Box>
       </Box>
+      <Divider />
 
       <Box className={classes.jobContent}>
         <Typography variant="h6" gutterBottom>
-          私たちがまだ取り組めていないこと
+          必須条件
         </Typography>
-        <Box>{data.notSolved}</Box>
+        <Box className={classes.contentData}>
+          {data.requiredApply}
+        </Box>
       </Box>
+      <Divider />
 
+      <Box className={classes.jobContent}>
+        <Typography variant="h6" gutterBottom>
+          歓迎条件
+        </Typography>
+        <Box className={classes.contentData}>
+          {data.welcomeApply}
+        </Box>
+      </Box>
+      <Divider />
+
+      <Box className={classes.jobContent}>
+        <Typography variant="h6" gutterBottom>
+          こんな方と働きたい
+        </Typography>
+        <Box className={classes.contentData}>
+          {data.seekPerson}
+        </Box>
+      </Box>
+      <Divider />
+
+      <Box className={classes.jobContent}>
+        <Typography variant="h6" gutterBottom>
+          働く環境
+        </Typography>
+        <Box className={classes.contentData}>
+          {data.workEnv}
+        </Box>
+      </Box>
+      <Divider />
+
+      <Box className={classes.jobContent}>
+        <Typography variant="h6" gutterBottom>
+          選考プロセス
+        </Typography>
+        <Box className={classes.contentData}>
+          {data.process}
+        </Box>
+      </Box>
+      <Divider />
+      
+      <Box className={classes.jobContent}>
+        <Typography variant="h6" gutterBottom>
+          給与形態
+        </Typography>
+        <Box className={classes.contentData}>
+          {data.salarySystem}
+        </Box>
+      </Box>
+      
       <Divider />
 
     </Grid>

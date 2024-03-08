@@ -1,31 +1,19 @@
 import { useState, useEffect } from "react"
 import { useParams } from 'react-router';
+// Material UI
 import Typography from '@mui/material/Typography';
 import {
-  Button,
   Grid,
-  Divider
+  Divider,
+  Link,
 } from '@material-ui/core'
-
 // API
 import { showJob } from 'api/job'
 import { JobOrganization } from 'interfaces/job'
-// Styles
-import { makeStyles, Theme } from "@material-ui/core/styles"
+// Component
+import ApplyButton from "./ApplyButton";
 
-const useStyles = makeStyles((theme: Theme) => ({
-  applyBtn: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(2),
-    width: '280px',
-    fontWeight: 600,
-    backgroundColor: '#186aff',
-  },
-}))
-
-export default function Sidebar() {
-
-  const classes = useStyles()
+const Sidebar: React.FC = () => {
 
   const { id } = useParams<{ id: string | undefined }>();
   const [getJobOrganization, setGetJobOrganization] = useState<JobOrganization[]>([]);
@@ -55,16 +43,10 @@ export default function Sidebar() {
   return (
     <Grid item xs={12} md={4}>
       
-      <Button
-        variant="contained"
-        color="primary"
-        disableElevation
-        size="large"
-        className={classes.applyBtn}
-      >
-        応募する
-      </Button>
+      {/* 応募機能 */}
+      <ApplyButton/>
 
+      {/* 会社情報 */}
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
         会社情報
       </Typography>
@@ -73,16 +55,18 @@ export default function Sidebar() {
       {getJobOrganization.map((job: JobOrganization, index) => (
         <Grid key={index} item>
           <Typography>
-            URL：{job.organization?.serviceLink}
-          </Typography>
-          <Typography>
             メンバー数：{job.organization?.members}
           </Typography>
           <Typography>
             代表者名：{job.organization?.presidentName}
           </Typography>
+          <Link href={job.organization?.serviceLink} underline="hover" target="_blank">
+            {job.organization?.serviceLink}
+          </Link>
         </Grid>
       ))}
     </Grid>
   );
 }
+
+export default Sidebar;

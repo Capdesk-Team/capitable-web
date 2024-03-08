@@ -70,7 +70,7 @@ const ChatRoomsLists: React.FC = () => {
                 <Grid container key={index}>
                   <List>
                     {/* 個別のチャットルームへ飛ばす */}
-                    <Link to={`/chatroom/${chatRoom.chatRoom.id}`} className={classes.link}>
+                    <Link to={`/chatroom/${chatRoom.chatRoom.uuid}`} className={classes.link}>
                       <div className={classes.root}>
                         <ListItem alignItems="flex-start" style={{padding: 0 }}>
                           <ListItemAvatar>

@@ -1,5 +1,5 @@
 export interface Message {
-  chatRoomId: number | undefined
+  chatRoomId: string | undefined
   userId: number | undefined
   content: string
   createdAt?: Date

@@ -3,9 +3,9 @@ import { Link } from "react-router-dom"
 // Material UI
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
-import { Container, Grid } from "@material-ui/core"
-
-import { 
+import {
+  Container, 
+  Grid,
   Typography,
 } from "@material-ui/core"
 // Import Style
@@ -54,6 +54,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   snsIcon: {
     paddingRight: theme.spacing(1),
     paddingLeft: theme.spacing(1)
+  },
+  companyLogo: {
+    paddingRight: theme.spacing(3),
+    paddingLeft: theme.spacing(3)
   },
   switchText: {
     textAlign: "center",
@@ -120,7 +124,6 @@ const Index: React.FC = () => {
   return (
     <>
       <div className={classes.wrapper}>
-
       <header>
         <Header/>
       </header>
@@ -174,7 +177,6 @@ const Index: React.FC = () => {
               > 
                 法人の方はこちらから
               </Button>
-
               </Grid>
             </Grid>
           
@@ -193,7 +195,10 @@ const Index: React.FC = () => {
         <h2 className={classes.secondHeading}>導入企業</h2>
         <Grid container alignItems="center" justify="center" spacing={4}>
           <Grid item >
-            <img src="/kenzo_logo.png" width="80" height="80" alt="ホームアイコン" className={classes.snsIcon} />
+            <img src="/kenzo_logo.png" width="80" height="80" alt="ホームアイコン" className={classes.companyLogo} />
+          </Grid>
+          <Grid>
+            <img src="/select_studio_logo.png" width="120" height="90" alt="ホームアイコン" className={classes.companyLogo} />
           </Grid>
         </Grid>
 

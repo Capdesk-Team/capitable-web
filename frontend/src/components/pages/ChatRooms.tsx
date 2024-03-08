@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { AuthContext } from "App"
+import React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,46 +11,10 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Avatar from "@material-ui/core/Avatar"
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import FormControl from "@material-ui/core/FormControl"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-// import { secondaryListItems } from './ListItems';
-import { ProfileListItems } from './ProfileListItems';
-import { Card, CardContent } from '@material-ui/core';
-import Button from "@material-ui/core/Button"
-import EditIcon from '@material-ui/icons/Edit';
-import Paper from '@mui/material/Paper';
-
-// Components
-// Material Icons
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-
-// Import Style
-import { makeStyles, Theme } from "@material-ui/core/styles"
-
-// Style
-const useStyles = makeStyles((theme: Theme) => ({
-  profileCard: {
-    margin: theme.spacing(4),
-    maxWidth: 720
-  },
-  profileContent: {
-    color: 'gray',
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(1),
-    fontWeight: 'bold',
-    border: 'solid 1px #dfdfdf',
-    borderRadius: 5,
-  },
-  
-}))
-
-
+import ChatRoomsLists from 'components/pages/ChatRoomsLists';
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -106,12 +69,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-
-  const classes = useStyles()
-
   const [open, setOpen] = React.useState(true);
-  const { currentUser } = useContext(AuthContext)
-
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -143,9 +101,9 @@ export default function Dashboard() {
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 0.1 }}
             >
-              ユーザー設定
+              メッセージ
             </Typography>
           </Toolbar>
         </AppBar>
@@ -165,9 +123,9 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {ProfileListItems}
+            {/* {ここに応募者ユーザーのリストを表示} */}
             <Divider sx={{ my: 1 }} />
-            {/* {secondaryListItems} */}
+            <ChatRoomsLists/>
           </List>
         </Drawer>
         <Box
@@ -187,81 +145,10 @@ export default function Dashboard() {
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
-                <Card className={classes.profileCard}>
-                  <CardContent>
-                    
-                    <h3>ユーザー設定</h3>
-                    <Divider/>
-
-                    <Box display="flex" flexDirection="row" alignItems="center">
-                      <h3>お名前</h3>
-                      <Box flexGrow={1} />
-                      <Box>
-                        <Button variant="outlined" startIcon={<EditIcon />}>
-                          編集
-                        </Button>
-                      </Box>
-                    </Box>
-
-                    <Box className={classes.profileContent}>
-                      {
-                      currentUser?.portfolioUrl ? (
-                        currentUser.portfolioUrl 
-                      ) : (
-                        'ユーザー太郎'
-                      )}
-                    </Box>
-
-                    <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        disableElevation
-                        // className={classes}
-                      >
-                        保存する
-                      </Button>
-                    </Box>
-
-                    <Divider/>
-                    
-                    <h3>スカウト設定</h3>
-                    <Grid container spacing={3}>
-                      <Grid item xs={12}>
-                        <Box sx={{ minWidth: 240 }}>
-                          <FormControl fullWidth>
-                              <Select
-                                id="demo-simple-select"
-                              >
-                                <MenuItem value={10}>スカウトを受け取る</MenuItem>
-                                <MenuItem value={20}>スカウトを受け取らない</MenuItem>
-                                
-                              </Select>
-                          </FormControl>
-                        </Box>
-                      </Grid>
-                    </Grid>
-
-                    <Box my={1} flexDirection="row" justifyContent="flex-end" display="flex">
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        disableElevation
-                        // className={classes}
-                      >
-                        保存する
-                      </Button>
-                    </Box>
-
-                    <Divider/>
-
-          
-                  </CardContent>
-                </Card>
+                
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                
               </Grid>
             </Grid>
           </Container>

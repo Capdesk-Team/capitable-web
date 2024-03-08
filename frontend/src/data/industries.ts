@@ -7,5 +7,6 @@ export const industries: string[] = [
     "Eコマース",
     "Edtech",
     "HRtech",
-    "Consumer"
+    "Consumer",
+    "CtoC"
   ]

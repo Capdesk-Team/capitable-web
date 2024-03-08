@@ -1,5 +1,5 @@
 // Hooks API
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // Material UI
 import { 
   Box, 
@@ -24,9 +24,7 @@ export interface JobPositionType {
   employmentSystem: number;
 }
 
-function JobPosition(props: any) {
-
-  const [employmentSystem, setEmploymentSystem] = useState<number>()
+const JobPosition = (props: any) => {
 
   const {
     control,
@@ -126,26 +124,23 @@ function JobPosition(props: any) {
                 margin="dense"
                 fullWidth
               >
-              <InputLabel id="demo-simple-select-outlined-label">雇用形態</InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={employmentSystem}
-                label="雇用形態"
-                onChange={(e) => {
-                  setEmploymentSystem(e.target.value as number);
-                  field.onChange(e);
-                }}
-              >
-                {
-                  employmentSystems.map((employmentSystem) => (
-                    <MenuItem key={employmentSystem} value={employmentSystem}>{employmentSystem}</MenuItem>
-                  ))
-                }
-              </Select>
-            </FormControl>
+                <InputLabel id="demo-simple-select-outlined-label">雇用形態</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={field.value}
+                  label="雇用形態"
+                  onChange={(e) => field.onChange(e)}
+                >
+                  {employmentSystems.map((employmentSystem: string, index: number) => (
+                    <MenuItem key={employmentSystem} value={index}>
+                      {employmentSystem}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             )}
-          /> 
+          />
         </Box>
 
         <Box sx={{ display: "flex", justifyContent: 'flex-end', pt: 2 }}>

@@ -166,7 +166,7 @@ const Home: React.FC = () => {
                         <Grid container alignItems="center" spacing={2}>
                           <Grid item>
                             <img
-                              src={`https://capitable-api-eb39432eaef1.herokuapp.com/${job.organization.image.url}`}
+                              src={`${job.organization.image.url}`}
                               alt="企業イメージ"
                               className={classes.image}
                               width="72"

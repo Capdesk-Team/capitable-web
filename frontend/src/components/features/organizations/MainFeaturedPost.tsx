@@ -66,7 +66,7 @@ const MainFeaturedPost: React.FC = () => {
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
                       <img
-                        src={`https://capitable-api-eb39432eaef1.herokuapp.com/${organization.image.url}`}
+                        src={`${organization.image.url}`}
                         alt="企業イメージ"
                         className={classes.image}
                         width="92"

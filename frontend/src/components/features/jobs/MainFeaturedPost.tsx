@@ -95,7 +95,7 @@ const MainFeaturedPost:React.FC = () => {
                   </Grid>
                   <Grid item>
                     <img
-                      src={`https://capitable-api-eb39432eaef1.herokuapp.com/${job.organization.image.url}`}
+                      src={`${job.organization.image.url}`}
                       alt="企業イメージ"
                       width="92"
                       height="92"

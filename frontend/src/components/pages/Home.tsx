@@ -227,7 +227,6 @@ const Home: React.FC = () => {
                       <FormControlLabel control={<Checkbox />} label="シリーズB" />
                       <FormControlLabel control={<Checkbox />} label="シリーズC" />
                       <FormControlLabel control={<Checkbox />} label="シリーズD" />
-                      <FormControlLabel control={<Checkbox />} label="シリーズE" />
                     </FormGroup>
                   </Paper>
                 </Grid>

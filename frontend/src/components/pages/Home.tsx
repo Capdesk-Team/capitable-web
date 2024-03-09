@@ -166,7 +166,7 @@ const Home: React.FC = () => {
                         <Grid container alignItems="center" spacing={2}>
                           <Grid item>
                             <img
-                              src={`https://capitable-api-eb39432eaef1.herokuapp.com/${job.organization.image.url}`}
+                              src={`${job.organization.image.url}`}
                               alt="企業イメージ"
                               className={classes.image}
                               width="72"
@@ -227,7 +227,6 @@ const Home: React.FC = () => {
                       <FormControlLabel control={<Checkbox />} label="シリーズB" />
                       <FormControlLabel control={<Checkbox />} label="シリーズC" />
                       <FormControlLabel control={<Checkbox />} label="シリーズD" />
-                      <FormControlLabel control={<Checkbox />} label="シリーズE" />
                     </FormGroup>
                   </Paper>
                 </Grid>

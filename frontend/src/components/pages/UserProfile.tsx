@@ -110,6 +110,7 @@ const defaultTheme = createTheme();
 
 const UserProfile: React.FC = () => {
 
+  // Stateの修正
   const [user, setUser] = useState({
     id: '',
     uuid: '',

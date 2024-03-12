@@ -59,9 +59,6 @@ const ChatRoomsLists: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h6">
-        メッセージ一覧
-      </Typography>            
       {
         !loading ? (
           chatRooms.length > 0 ? (
@@ -80,7 +77,11 @@ const ChatRoomsLists: React.FC = () => {
                             />
                           </ListItemAvatar>
                           <ListItemText
-                            primary={chatRoom.otherUser?.name}
+                            primary={
+                              <Link to={`/apply/user/${chatRoom.otherUser?.uuid}`}>
+                                {chatRoom.otherUser?.name}
+                              </Link>
+                            }
                             secondary={
                               <div style={{ marginTop: "0.5rem" }}>
                                 <Typography

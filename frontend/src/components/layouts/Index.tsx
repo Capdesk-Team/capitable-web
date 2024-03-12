@@ -191,7 +191,7 @@ const Index: React.FC = () => {
           </div>
         </div>
 
-        {/* 導入企業 */}
+        {/* 導入企業ロゴ */}
         <h2 className={classes.secondHeading}>導入企業</h2>
         <Grid container alignItems="center" justify="center" spacing={4}>
           <Grid item >
@@ -199,6 +199,9 @@ const Index: React.FC = () => {
           </Grid>
           <Grid>
             <img src="/select_studio_logo.png" width="120" height="90" alt="ホームアイコン" className={classes.companyLogo} />
+          </Grid>
+          <Grid>
+            <img src="/riv_logo.png" width="80" height="60" alt="ホームアイコン" className={classes.companyLogo} />
           </Grid>
         </Grid>
 

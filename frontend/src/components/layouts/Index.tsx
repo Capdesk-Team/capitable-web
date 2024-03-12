@@ -191,7 +191,7 @@ const Index: React.FC = () => {
           </div>
         </div>
 
-        {/* 導入企業 */}
+        {/* 導入企業ロゴを表示 */}
         <h2 className={classes.secondHeading}>導入企業</h2>
         <Grid container alignItems="center" justify="center" spacing={4}>
           <Grid item >

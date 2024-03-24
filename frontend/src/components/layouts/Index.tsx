@@ -203,6 +203,9 @@ const Index: React.FC = () => {
           <Grid>
             <img src="/riv_logo.png" width="80" height="60" alt="ホームアイコン" className={classes.companyLogo} />
           </Grid>
+          <Grid>
+            <img src="/banly.png" width="100" height="80" alt="ホームアイコン" className={classes.companyLogo} />
+          </Grid>
         </Grid>
 
         {/* 利用方法 */}

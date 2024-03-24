@@ -1,5 +1,6 @@
 // 調達ラウンドのマスターデータ
 export const rounds: string[] = [
+    "プレシード",
     "シード",
     "プレシリーズA",
     "シリーズA",
@@ -7,4 +8,4 @@ export const rounds: string[] = [
     "シリーズC",
     "シリーズD",
     "シリーズE",
-  ]  
+  ]

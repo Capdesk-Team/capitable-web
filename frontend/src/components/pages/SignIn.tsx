@@ -18,6 +18,10 @@ import {
   Container, 
   Grid 
 } from "@material-ui/core"
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
 // Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
 // Component
@@ -93,6 +97,13 @@ const SignIn: React.FC = () => {
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
   const [successMessageOpen, setSuccessMessageOpen] = useState<boolean>(false)
 
+  // パスワードの表示・非表示
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };  
+
   // メールアドレスログイン処理
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -153,11 +164,25 @@ const SignIn: React.FC = () => {
                 required
                 fullWidth
                 label="パスワード"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 margin="dense"
                 autoComplete="current-password"
                 onChange={event => setPassword(event.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
               <Button
                 type="submit"

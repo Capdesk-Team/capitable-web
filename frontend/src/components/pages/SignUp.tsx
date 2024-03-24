@@ -15,6 +15,10 @@ import CardHeader from "@material-ui/core/CardHeader"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
 import { Typography } from "@material-ui/core"
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 // Import Style
 import { makeStyles, Theme } from "@material-ui/core/styles"
 // Components
@@ -89,6 +93,14 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
+  // パスワードの表示・非表示
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
@@ -142,7 +154,7 @@ const SignUp: React.FC = () => {
                 variant="outlined"
                 required
                 fullWidth
-                label="お名前(フルネーム)"
+                label="お名前(例：山田太郎)"
                 value={name}
                 margin="dense"
                 onChange={event => setName(event.target.value)}
@@ -161,22 +173,50 @@ const SignUp: React.FC = () => {
                 required
                 fullWidth
                 label="パスワード"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 margin="dense"
                 autoComplete="current-password"
                 onChange={event => setPassword(event.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
-              <TextField
+               <TextField
                 variant="outlined"
                 required
                 fullWidth
                 label="パスワード(確認用)"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={passwordConfirmation}
                 margin="dense"
                 autoComplete="current-password"
                 onChange={event => setPasswordConfirmation(event.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
               <Button
                 type="submit"
@@ -226,7 +266,7 @@ const SignUp: React.FC = () => {
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="メールアドレスかパスワードが違います"
+        message="パスワードが一致していません"
       />
       </div>
     </>

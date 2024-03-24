@@ -15,7 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import ChatRoomsLists from 'components/pages/ChatRoomsLists';
-const drawerWidth: number = 240;
+const drawerWidth: number = 320;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -68,7 +68,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+const ChatRooms: React.FC = () => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -121,7 +121,6 @@ export default function Dashboard() {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <Divider />
           <List component="nav">
             {/* {ここに応募者ユーザーのリストを表示} */}
             <Divider sx={{ my: 1 }} />
@@ -157,3 +156,5 @@ export default function Dashboard() {
     </ThemeProvider>
   );
 }
+
+export default ChatRooms;

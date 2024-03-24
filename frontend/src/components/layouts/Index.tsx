@@ -190,23 +190,23 @@ const Index: React.FC = () => {
             </Box>
           </div>
         </div>
-
         {/* 導入企業ロゴを表示 */}
-        <h2 className={classes.secondHeading}>導入企業</h2>
-        <Grid container alignItems="center" justify="center" spacing={4}>
-          <Grid item >
-            <img src="/kenzo_logo.png" width="80" height="80" alt="ホームアイコン" className={classes.companyLogo} />
-          </Grid>
-          <Grid>
-            <img src="/select_studio_logo.png" width="120" height="90" alt="ホームアイコン" className={classes.companyLogo} />
-          </Grid>
-          <Grid>
-            <img src="/riv_logo.png" width="80" height="60" alt="ホームアイコン" className={classes.companyLogo} />
-          </Grid>
-          <Grid>
-            <img src="/banly.png" width="100" height="80" alt="ホームアイコン" className={classes.companyLogo} />
-          </Grid>
-        </Grid>
+<h2 className={classes.secondHeading}>導入企業</h2>
+<Grid container alignItems="center" justify="center" spacing={4}>
+  <Grid item >
+    <img src="/kenzo_logo.png" width="80" height="80" alt="ホームアイコン" className={classes.companyLogo} />
+  </Grid>
+  <Grid>
+    <img src="/select_studio_logo.png" width="120" height="90" alt="ホームアイコン" className={classes.companyLogo} />
+  </Grid>
+  <Grid>
+    <img src="/riv_logo.png" width="80" height="60" alt="ホームアイコン" className={classes.companyLogo} />
+  </Grid>
+  <Grid>
+    <img src="/banly.png" width="100" height="80" alt="ホームアイコン" className={classes.companyLogo} />
+  </Grid>
+</Grid>
+
 
         {/* 利用方法 */}
         <h2 className={classes.secondHeading}>利用方法</h2>

@@ -123,7 +123,6 @@ const ChatRoom = () => {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <Divider />
           <List component="nav">
             {/* {ここに応募者ユーザーのリストを表示} */}
             <Divider sx={{ my: 1 }} />

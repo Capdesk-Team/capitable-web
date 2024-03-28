@@ -183,7 +183,7 @@ const RegisterOrganization:React.FC = () => {
         setIndustry(undefined)
 
         setMembers(0)
-        navigate("/dashboards")
+        navigate("/home")
         
         setAlertMessageOpen(true)
         

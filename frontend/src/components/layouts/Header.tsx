@@ -257,11 +257,18 @@ const Header: React.FC = () => {
                     <ListItem button component={Link} to="/company/register-form" target="_blank">
                       <ListItemText primary="法人登録をおこなう" />
                     </ListItem>
+
                     {organizations.map((organization: getOrganizationsList, index) => (
-                      <ListItem button key={index} component={Link} to={`/organizations/${organization.id}/dashboard`}>
-                        <ListItemText primary="法人ダッシュボードへ" />
-                      </ListItem>
-                    ))}
+                    <React.Fragment key={index}>
+                      {/* organization.users が undefined でない場合のみ処理を実行 */}
+                      {organization.users !== undefined &&
+                        organization.users.find(user => user.id === currentUser?.id) && ( // user.idがcurrentUserのidと一致する場合
+                          <ListItem button key={index} component={Link} to={`/organizations/${organization.id}/dashboard`}>
+                            <ListItemText primary="法人ダッシュボードへ" />
+                          </ListItem>
+                        )}
+                    </React.Fragment>
+                    ))} 
                     <ListItem button component={Link} to="/chatrooms" >
                       <ListItemText primary="メッセージ" />
                     </ListItem>

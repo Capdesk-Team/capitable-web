@@ -12,7 +12,13 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 // Material UI
 import {
   Toolbar,
-  Grid
+  Grid,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
@@ -23,6 +29,7 @@ import IconButton from "@material-ui/core/IconButton"
 import Divider from '@material-ui/core/Divider'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import MenuIcon from '@material-ui/icons/Menu';
 import { AuthContext } from "App"
 
 // Material Icons
@@ -94,9 +101,31 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 600,
     backgroundColor: '#186aff'
   },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      display: 'none', // PC用のレイアウトではハンバーガーメニューボタンを非表示にする
+    },
+  },
+  list: {
+    width: 250,
+  },
 }))
 
 const Header: React.FC = () => {
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const theme = useTheme();
+  // スマートフォンかどうかのレイアウトを確認
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleDrawerOpen = () => {
+    setOpenDrawer(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpenDrawer(false);
+  };
+
   const { loading, isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext)
 
   const [organizations, setOrganizations] = useState<getOrganizationsList[]>([]);
@@ -163,46 +192,88 @@ const Header: React.FC = () => {
       if (isSignedIn) {
         return (
             <>
-              <Button
-                color="inherit"
-                className={classes.linkBtn}
-                component={Link}
-                to="/company/register-form"  
-              >
-                法人登録をおこなう
-              </Button>
+              {isMobile ? ( // スマートフォン用のレイアウト
+                <IconButton
+                  edge="end"
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={handleDrawerOpen}
+                >
+                  <MenuIcon />
+                </IconButton>
+              ) : ( // PC用のレイアウト
+                <>
+                  {/* PC用のレイアウトに合わせたボタンの配置 */}
+                  <Button
+                    color="inherit"
+                    className={classes.linkBtn}
+                    component={Link}
+                    to="/company/register-form"
+                  >
+                    法人登録をおこなう
+                  </Button>
+                  {organizations.map((organization: getOrganizationsList, index) => (
+                    <Grid item key={index}>
+                      {/* organization.users が undefined でない場合のみ処理を実行 */}
+                      {organization.users !== undefined &&
+                        organization.users.find(user => user.id === currentUser?.id) && ( // user.idがcurrentUserのidと一致する場合
+                          <Button
+                            component={Link}
+                            to={`/organizations/${organization.id}/dashboard`}
+                            className={classes.linkBtn}
+                          >
+                            法人ダッシュボードへ
+                          </Button>
+                        )}
+                    </Grid>
+                  ))}
+                  <IconButton
+                    component={Link}
+                    to="/chatrooms"  
+                  >
+                    <MailOutlineIcon/>
+                  </IconButton>
+                  <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                  >
+                    <Avatar src={`${currentUser?.image.url}`} className={classes.avatar}/>
+                  </IconButton>
+                </>
+              )}
 
-              {organizations.map((organization: getOrganizationsList, index) => (
-                <Grid item key={index}>
-                  {/* organization.users が undefined でない場合のみ処理を実行 */}
-                  {organization.users !== undefined &&
-                    organization.users.find(user => user.id === currentUser?.id) && ( // user.idがcurrentUserのidと一致する場合
-                      <Button
-                        component={Link}
-                        to={`/organizations/${organization.id}/dashboard`}
-                        className={classes.linkBtn}
-                      >
-                        法人ダッシュボードへ
-                      </Button>
-                    )}
-                </Grid>
-              ))}
+              <Drawer anchor="right" open={openDrawer} onClose={handleDrawerClose}>
+                <div
+                  className={classes.list}
+                  role="presentation"
+                  onClick={handleDrawerClose}
+                  onKeyDown={handleDrawerClose}
+                >
+                  <List>
+                    <ListItem button component={Link} to="/company/register-form" target="_blank">
+                      <ListItemText primary="法人登録をおこなう" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/signin">
+                      <ListItemText primary="法人ダッシュボードへ" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/chatrooms" >
+                      <ListItemText primary="メッセージ" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/signup">
+                      <ListItemText primary="プロフィールへ" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/signup">
+                      <ListItemText primary="ログアウト" />
+                    </ListItem>
+                  </List>
+                  <Divider />
+                </div>
+              </Drawer>
 
-              <IconButton
-                component={Link}
-                to="/chatrooms"  
-              >
-                <MailOutlineIcon/>
-              </IconButton>
-              <IconButton
-                onClick={handleClick}
-                size="small"
-                aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-              >
-                <Avatar src={`${currentUser?.image.url}`} className={classes.avatar}/>
-              </IconButton>
               <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -238,34 +309,84 @@ const Header: React.FC = () => {
       } else {
         return (
           <>
-            <Button
-              component={Link}
-              to="https://forms.gle/H65NorqmpAKfR8y17"
-              target="_blank"
-              className={classes.linkBtn}
+          {isMobile ? ( // スマートフォン用のレイアウト
+            <>
+              <Button
+                component={Link}
+                to="/signup"
+                color="primary"
+                variant="contained"
+                disableElevation
+                className={classes.linkSignUp}
+              >
+                無料で新規登録
+              </Button>
+              <IconButton
+                edge="end"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+                onClick={handleDrawerOpen}
+              >
+                <MenuIcon />
+              </IconButton>
+            </>
+          ) : ( // PC用のレイアウト
+            <>
+              {/* PC用のレイアウトに合わせたボタンの配置 */}
+              <Button
+                component={Link}
+                to="https://forms.gle/H65NorqmpAKfR8y17"
+                target="_blank"
+                className={classes.linkBtn}
+              >
+                法人の方はこちらから
+              </Button>
+              <Button
+                component={Link}
+                to="/signin"
+                color="primary"
+                variant="outlined"
+                className={classes.linkBtn}
+              >
+                ログイン
+              </Button>
+              <Button
+                component={Link}
+                to="/signup"
+                color="primary"
+                variant="contained"
+                disableElevation
+                className={classes.linkSignUp}
+              >
+                無料で新規登録
+              </Button>
+            </>
+          )}
+
+          <Drawer anchor="right" open={openDrawer} onClose={handleDrawerClose}>
+            <div
+              className={classes.list}
+              role="presentation"
+              onClick={handleDrawerClose}
+              onKeyDown={handleDrawerClose}
             >
-              法人の方はこちらから
-            </Button>
-            <Button
-              component={Link}
-              to="/signin"
-              color="primary"
-              variant="outlined"
-              className={classes.linkBtn}
-            >
-              ログイン
-            </Button>
-            <Button
-              component={Link}
-              to="/signup"
-              color="primary"
-              variant="contained"
-              disableElevation
-              className={classes.linkSignUp}
-            >
-              無料で新規登録
-            </Button>
-          </>
+              <List>
+                <ListItem button component={Link} to="https://forms.gle/H65NorqmpAKfR8y17" target="_blank">
+                  <ListItemText primary="法人の方はこちらから" />
+                </ListItem>
+                <ListItem button component={Link} to="/signin">
+                  <ListItemText primary="ログイン" />
+                </ListItem>
+                <ListItem button component={Link} to="/signup">
+                  <ListItemText primary="無料で新規登録" />
+                </ListItem>
+              </List>
+              <Divider />
+            </div>
+          </Drawer>
+
+        </>
         )
       }
     } else {

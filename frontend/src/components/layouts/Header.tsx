@@ -143,7 +143,7 @@ const Header: React.FC = () => {
   };
   
   // ログアウトの処理
-  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSignOut = async (e: React.MouseEvent<HTMLDivElement>) => {
     try {
       const res = await signOut()
 
@@ -257,16 +257,18 @@ const Header: React.FC = () => {
                     <ListItem button component={Link} to="/company/register-form" target="_blank">
                       <ListItemText primary="法人登録をおこなう" />
                     </ListItem>
-                    <ListItem button component={Link} to="/signin">
-                      <ListItemText primary="法人ダッシュボードへ" />
-                    </ListItem>
+                    {organizations.map((organization: getOrganizationsList, index) => (
+                      <ListItem button key={index} component={Link} to={`/organizations/${organization.id}/dashboard`}>
+                        <ListItemText primary="法人ダッシュボードへ" />
+                      </ListItem>
+                    ))}
                     <ListItem button component={Link} to="/chatrooms" >
                       <ListItemText primary="メッセージ" />
                     </ListItem>
-                    <ListItem button component={Link} to="/signup">
+                    <ListItem button component={Link} to={`/user/${currentUser?.uuid}`}>
                       <ListItemText primary="プロフィールへ" />
                     </ListItem>
-                    <ListItem button component={Link} to="/signup">
+                    <ListItem button onClick={handleSignOut}>
                       <ListItemText primary="ログアウト" />
                     </ListItem>
                   </List>
@@ -294,14 +296,14 @@ const Header: React.FC = () => {
                 プロフィール
               </MenuItem>
               <Divider />
-                <Button onClick={handleSignOut}>
+                <div onClick={handleSignOut}>
                   <MenuItem>
                     <ListItemIcon>
                       <ExitToAppIcon fontSize="small" />
                     </ListItemIcon>
                     ログアウト
                   </MenuItem>
-                </Button>
+                </div>
               </Menu>
             <Divider/>
           </>

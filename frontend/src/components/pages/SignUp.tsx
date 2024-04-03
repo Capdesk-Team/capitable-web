@@ -149,6 +149,7 @@ const SignUp: React.FC = () => {
         <form noValidate autoComplete="off">
           <Card className={classes.card}>
             <CardHeader className={classes.header} title="無料で新規登録" />
+            <Typography  className={classes.header}>※ 現在サービスを一時停止中です。ご迷惑をおかけしますが、ご理解の程よろしくお願いいたします</Typography>
             <CardContent>
               <TextField
                 variant="outlined"
